@@ -1,0 +1,229 @@
+\input{header}
+\input{macros}
+\sheet{1}
+\begin{document}
+
+\section{Finite Automata}
+
+\subsection{(a)}
+
+$A = \left\{ x \in \left\{0,1\right\} ^{*} \mid \lvert x \rvert \text{ is even} \right\}$
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state,accepting](A) {even};
+\node[state](B) [right of=A] {odd};
+
+\path (A) edge [bend left] node {0,1} (B)
+      (B) edge [bend left] node {0,1} (A);
+\end{tikzpicture}
+
+We want an automaton to determine whether the length of a word of $\left\{0,1\right\}^{*}$ is an even or odd number. For this, we start with the empty word $\epsilon$, which has length $0$, which is even. For every single digit ($0$ or $1$) we get when our length is currently even, our length becomes odd (because every even number $+1$ becomes odd), and for every digit we add to a word of odd-numbered length, the length becomes even.
+
+\subsection{(b)}
+
+$B = \left\{ x \in \left\{0,1\right\} ^{*} \mid x \text{ contains exactly three } 0s \right\}$
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state](A) {no 0s};
+\node[state](B) [right of=A] {one 0};
+\node[state](C) [right of=B] {two 0s};
+\node[state,accepting](D) [right of=C] {three 0s};
+\node[state](E) [right of=D] {more};
+
+\path (A) edge  node {0} (B)
+          edge [loop above] node {1} (A)
+      (B) edge  node {0} (C)
+          edge [loop above] node {1} (B)
+      (C) edge  node {0} (D)
+          edge [loop above] node {1} (C)
+      (D) edge node {0} (E)
+          edge [loop above] node {1} (D)
+      (E) edge [loop above] node {0,1} (E);
+\end{tikzpicture}
+
+Whenever we read a $1$, we stay in the same state, on the other hand, if we read a $0$, we jump to the next state. After reading exactly 3 $0$s we are in the accepting state, but after reading one more $0$ we go to the state where we have more than 3 $0$s and therefore reject it. Once we have read more than 3 $0$s, we remain in that state no matter the number read.
+
+\subsection{(c)}
+
+$C = \left\{ x \in \left\{0,1\right\} ^{*} \mid x \text{ does not contain two (or more) consecutive } 0s \right\}$
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state,accepting](A) {no 0s};
+\node[state,accepting](B) [right of=A] {one 0};
+\node[state](C) [right of=B] {two 0s};
+
+
+\path (A) edge [bend left]  node {0} (B)
+          edge [loop above] node {1} (A)
+      (B) edge  node {0} (C)
+          edge [bend left] node {1} (A)
+      (C) edge [loop above]  node {0,1} (C);
+\end{tikzpicture}
+
+Here, we accept $x$ which does not contain two or more $0$s. When we read a $0$, we are still in an accepting state, from which, if followed by another $0$, we go to the rejecting state. If we read a $1$ in the first step we stay in the starting state and if we read a $1$ in the second state, we jump right back to the starting state, since we only want to count consecutive $0$s in this automaton.
+
+\subsection{(d)}
+
+$D = \left\{ x \in \left\{0,1\right\} ^{*} \mid x \text{ mod } 3 = 0 \right\}$
+
+We will construct the automaton by constructing each of the individual edges.\\
+For this, we will need some modular arithmetic tools:\\
+$n\text{ mod } 3 = 0 \Leftrightarrow \exists k \in \mathbb{N}: n = 3\cdot k$\\
+$n\text{ mod } 3 = 1 \Leftrightarrow \exists k \in \mathbb{N}: n = 3\cdot k + 1$\\
+$n\text{ mod } 3 = 2 \Leftrightarrow \exists k \in \mathbb{N}: n = 3\cdot k + 2$\\
+Also, appending a $0$ to a binary number gives the following: $(n0)_{2} = (2*n)_{10}$\\
+Similarly, appending a $1$ to a binary number gives the following: $(n1)_{2} = (2*n+1)_{10}$\\
+
+From this, we get the following transitions:
+\begin{itemize}
+    \item initial state $n \text{ mod } 3 = 0 \Leftrightarrow \exists k \in \mathbb{N}: n = 3\cdot k$:
+    \begin{itemize}
+        \item append $0$: $(n0)_{2} = (2n)_{10} = (2\cdot(3k))_{10} = (6k)_{10} = (3(2k))_{10} = (3k')_{10}$
+        where $k'=2k \in \mathbb{N}$\\
+        $\rightarrow n \text{ mod } 3 = 0 \Leftrightarrow (n0)_{2} \text{ mod } 3 = 0$
+        \item append $1$\todo{should I put the index 10 for every single step of the calculation?}: $(n1)_{2} = (2n+1)_{10} = (2\cdot(3k)+1) = 6k+1 = 3(2k')+1$
+        where $k'=2k \in \mathbb{N}$\\
+        $\rightarrow n \text{ mod } 3 = 0 \Leftrightarrow (n1)_{2} \text{ mod } 3 = 1$
+    \end{itemize}
+    \item initial state $n \text{ mod } 3 = 1 \Leftrightarrow \exists k \in \mathbb{N}: n = 3\cdot k + 1$:
+    \begin{itemize}
+        \item append $0$: $(n0)_{2} = (2n)_{10} = (2\cdot(3k+1)) = 6k+2 = 3(2k')+2$
+        where $k'=2k \in \mathbb{N}$\\
+        $\rightarrow n \text{ mod } 3 = 1 \Leftrightarrow (n0)_{2} \text{ mod } 3 = 2$
+        \item append $1$: $(n1)_{2} = (2n+1)_{10} = (2\cdot(3k+1)+1) = 6k+2+1 = 3(k')$
+        where $k'=2k+1 \in \mathbb{N}$\\
+        $\rightarrow n \text{ mod } 3 = 1 \Leftrightarrow (n1)_{2} \text{ mod } 3 = 0$
+    \end{itemize}
+    \item initial state $n \text{ mod } 3 = 2 \Leftrightarrow \exists k \in \mathbb{N}: n = 3\cdot k + 2$:
+    \begin{itemize}
+        \item append $0$: $(n0)_{2} = (2n)_{10} = (2\cdot(3k+2)) = 6k+4 = 3(2k)+3+1 = 3(2k+1)+1 = 3k'+1$
+        where $k' = 2k+1\in \mathbb{N}$\\
+        $\rightarrow n \text{ mod } 3 = 2 \Leftrightarrow (n0)_{2} \text{ mod } 3 = 1$
+        \item append $1$: $(n1)_{2} = (2n+1)_{10} = (2\cdot(3k+2)+1) = 6k+5 = 3(2k)+3+2 = 3(2k+1)+2 = 3k'+2$
+        where $k'=2k+1 \in \mathbb{N}$\\
+        $\rightarrow n \text{ mod } 3 = 2 \Leftrightarrow (n1)_{2} \text{ mod } 3 = 2$
+    \end{itemize}
+\end{itemize}
+
+We have now handled all possible transitions and can therefore assemble the automaton:
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state,accepting](A) {0};
+\node[state](B) [right of=A] {1};
+\node[state](C) [right of=B] {2};
+
+
+\path (A) edge [bend left]  node {1} (B)
+          edge [loop above] node {0} (A)
+      (B) edge [bend left]  node {0} (C)
+          edge [bend left]  node {1} (A)
+      (C) edge [bend left]  node {0} (B)
+          edge [loop above] node {1} (C);
+\end{tikzpicture}
+
+\subsection{(e)}
+
+$E = \left\{ x \in \left\{0,1,2,3\right\} ^{*} \mid x = x_1x_2\ldots x_{l-1}x_l \text{ and } \prod_{i=1}^{l} x_i = 12\right\}$,
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state](A) {1};
+\node[state](B) [right of=A] {2};
+\node[state](C) [right of=B] {3};
+\node[state](D) [right of=C] {4};
+\node[state](E) [right of=D] {6};
+\node[state,accepting](F) [right of=E] {12};
+\node[state](G) [below=of D] {not valid};
+
+\path (A) edge [loop above]  node {1} (A)
+          edge  node {2} (B)
+          edge [bend left] node {3} (C)
+          edge [bend left=-30] node {0} (G)
+
+      (B) edge [loop right]  node {1} (B)
+          edge [bend left=80] node {2} (D)
+          edge [bend left=110] node {3} (E)
+          edge [bend left=-30] node {0} (G)
+
+      (C) edge [loop right]  node {1} (C)
+          edge [bend left=80] node {2} (E)
+          edge [bend left=-30] node {0,3} (G)
+          
+      
+      (D) edge [loop right]  node {1} (D)
+          edge [bend left=90] node {3} (F)
+          edge [bend left=-30] node {0,2} (G)
+          
+           
+      (E) edge [loop below]  node {1} (E)
+          edge node {2} (F)
+          edge [bend left=-30] node {0,3} (G)
+          
+      (F) edge [loop right]  node {1} (F)
+          edge [bend left=30] node {0,2,3} (G)
+          
+      (G) edge [loop below]  node {0,1,2,3} (G);
+\end{tikzpicture}
+
+This finite automata has 1 as starting state and 12 as the accepting state.
+
+STATE 1: stays at the same state for input 1\\
+         jumps to state 2 for input 2 \\
+         jumps to state 3 for input 3\\
+         jumps to not valid for input 0
+
+STATE 2: stays at the same state for input 1\\
+         jumps to state 4 for input 2 \\
+         jumps to state 6 for input 3 \\
+         jumps to state not valid for input 0
+
+STATE 3: stays at the same state for input 1\\
+         jumps to state 6 for input 2 \\
+         jumps to state not valid for input 3,0 
+
+STATE 4: stays at the same state for input 1 \\
+         jumps to state 12(accepting state) for input 3\\ 
+         jumps to state not valid for input 0,2
+
+STATE 6: stays at the same state for input 1\\
+         jumps to state 12(accepting state) for input 2\\ 
+         jumps to state not valid for input 0,3
+
+STATE 12: stays at the same state (accepting state) for input 
+          1\\                   
+          jumps to state not valid for input 0,2,3
+
+STATE not valid: stays at the same state for input all inputs\\
+        
+         
+
+
+\subsection{(f)}
+
+$F = \left\{ x \in \left\{1,2,3\right\} ^{*} \mid \lvert x \rvert \geq 1 \text{ and } x = x_1x_2\ldots x_{l-1}x_l \text{ and } x_1 \geq x_2 \geq \ldots \geq x_{l-1} \geq x_l \right\}$
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state](A) {S};
+\node[state,accepting](B) [right of= A] {2};
+\node[state,accepting](C) [above=of B] {1};
+\node[state,accepting](D) [below=of B] {3};
+\node[state](E) [right of=B] {trap};
+
+\path  (A) edge node {2} (B)
+           edge [bend left] node {1} (C)
+           edge [bend right] node {3} (D)
+
+       (B) edge [loop below] node {2} (B)
+           edge node {1} (C)
+           edge [bend left=90] node {3} (E)
+
+       (C) edge [loop above] node {1} (C)
+           edge [bend left] node {2,3} (E)
+
+       (D) edge [loop below] node {3} (D)
+           edge [bend right] node {2} (B)
+           edge [bend right=30] node {1} (C);
+\end{tikzpicture}
+
+Here we look for sequences with numbers 1,2 and 3 following certain conditions. The accepting states here are 1,2 and 3 on the other hand, the trap state represents invalid sequences(the sequence that is not according to the rules of accepting state).If we read a 1 from the start state we end up at state 1 (accepting state) which upon the reading of a 2 or a 3 jumps tot the trap state, simlarly for state 2 , reading 2 stays in the same state whereas reading a 1 jumps to state 1 and reading a 3 jumps to trap state.For state 3 , reading a 3 remains in the same state and reading a 2 jumps to state 2 and reading a 1 to state 1.
+
+\end{document}

@@ -1,0 +1,119 @@
+\input{header}
+\input{macros}
+\sheet{1}
+\begin{document}
+
+\setcounter{section}{2}
+\section{Closure Properties}
+\subsection{(a)}
+$$L_{rev} = \left\{x\mid \exists l \in \mathbb{N}: x = x_{1}\cdots x_{l} \text{ and } x_{l}x_{l-1}\cdots x_{1} \in L\right\}$$
+\noindent (i)\\
+\begin{tikzpicture}[->, shorten >=1pt, node distance=2cm, on grid, auto]
+    \node[state, initial]   (P) {$P$};
+    \node[state]            (B) [above right of=P] {B};
+    \node[state]            (C) [below right of=P] {C};
+    \node[state]            (A) [right of=B]       {A};
+    \node[state, accepting] (S) [right of=C]     {S};
+
+    \path (P) edge node                  {$\epsilon$} (B)
+              edge node                  {$\epsilon$} (C)
+          (B) edge node [pos=0.1, right] {$1$}        (S)
+          (C) edge node [left]           {$0$}        (B)
+              edge node [pos=0.1, right] {$0,1$}      (A)
+          (S) edge node                  {$1$}        (C)
+          (A) edge node [left]           {$0$}        (S);
+\end{tikzpicture}\\
+\noindent (ii)\\
+Proof:\\
+For every regular language, there is by definition a finite automaton that accepts it.\\
+We prove that the reversal of a regular language is also regular by showing that, given an automaton $M=(Q,\Sigma,\delta,q_{0},Q_{acc})$ that accepts a language $L$, we can construct an automaton $M_{rev}=(Q',\Sigma',\delta',q_{0}',Q_{acc}')$ that accepts the language $L_{rev}$.\\
+For constructing our automaton $M_{rev}$, we proceed as follows:
+\begin{itemize}
+    \item we reuse the same states $Q$ of $M$, but add one new starting state $P$.\\
+    $Q' = Q \cup {P}$
+    \item we reuse the same input alphabet $\Sigma' = \Sigma$
+    \item for the transition function, we use the inverse function of the previous transition function.\\
+    \begin{align*}
+        \delta'(q_{1}, x) &= q_{2}&\forall \delta(q_{2},x) = q_{1}\\
+        \delta'(P, \epsilon) &= q_{s} &\forall q_{s}\in Q_{acc}\\
+    \end{align*}
+    \item we chose our newly added state as the starting state: $q_{0}' = P$
+    \item our previous starting state becomes our only accepting state: $Q_{acc}' = \left\{q_{0}\right\}$
+\end{itemize}
+Proof that $L(M_{rev}) = L_{rev}$:\\
+We have a word $x\in L$ which is accepted by $M$, so $\delta^{*}(q_{0},x)\in Q_{acc}$
+\begin{itemize}
+    \item[$\subseteq$:] We need to show that $L(M_{rev})\subseteq L_{rev}$\\
+    %Let $w$ be a word which is accepted by $M_{rev} \Leftrightarrow \delta ^{*}(q_{0},x)\in Q_{acc}'$\\
+    Let $x=x_{1}x_{2}\cdots x_{n-1}x_{n}$ and $s_{0},s_{1},\cdots,s_{n}$ and accepting computation of $M$ on $w$.\\
+    Therefore $\forall 0 \leq k \textless n: \delta(s_{k},x_{k+1})=s_{k+1}$  by Definition 1.2\\
+    By definition of $\delta'$, that gives us: $\forall 0 \leq k \textless n: \delta'(s_{k+1}, x_{n+1}) = s_{k}$\todo{do I even need $\delta$ and $\delta^{*}?$}\\
+    We can extrapolate this into: $\delta'^{*}(s_{n}, x_{n}x_{n-1}\cdots x_{2}x_{1}) = s_{0}$ by Lemma 1.5\\
+    Since $s_{0},s_{1},\cdots,s_{n}$ is an accepting computation of $M$ on $w$, by definition:
+    \begin{itemize}
+        \item $s_{0}$ is an initial state of $M$, so it is an accepting state of $M_{rev}$
+        \item $s_{n}$ is an accepting state of $M$, so there is an initial state $P$ of $M_{rev}$ with $\delta'(P,\epsilon)=s_{n}$
+    \end{itemize}
+    Therefore, $P,s_{n},s_{n-1},\cdots, s_{2},s_{1}$ is an accepting computation of $M_{rev}$. Since $\delta'(P,\epsilon)=s_{n}$, the transition from $P$ to $s_{n}$ does not carry a character. So, this computation is a computation for $x_{n}x_{n-1}\cdots x_{2}x_{1}$, which is the reverse of $x \in L$ and therefore $x_{n}x_{n-1}\cdots x_{2}x_{1} \in L_{rev}$
+    \item[$\supseteq$:] We need to show that $L_{rev}\subseteq L(M_{rev})$\\
+    We consider a word $x \in L$ with $x=x_{1}x_{2}\cdots x_{n-1}x_{n}$. By definition, the word $x_{rev} = x_{n}x_{n-1}\cdots x_{2}x_{1}$ is the reversal of $x$, so $x_{rev} \in L_{rev}$ .\\
+    We need to show that $M_{rev}$, as constructed previously, accepts $x_{rev}$.\\
+    Let $s_{0}, s_{1},\cdots,s_{n}$ be an accepting computation of $M$ on $x$.\\
+    We know by definition of $M_{rev}$ that there is an $\epsilon$-edge which takes us from our initial state $s_{n}$ of $M_{rev}$ to a state $s_{n}$. From the state $s_{n}$, we can get to the state $s_{n-1}$: since $s_{0}, s_{1}, \cdots, s_{n}$ is a computation of M, we know that $\delta(s_{n-1}, x_{n})=s_{n}$, which, by the definition of $\delta'$, implies $\delta'(s_{n},x_{n})=s_{n-1}$.\\
+    We have now shown: for all states $s_{n}$ and $s_{n-1}$ in the computation of M on x, $\delta'$ allows a transition from $s_{n}$ to $s_{n-1}$.\\
+    Also, by definition:
+    \begin{itemize}
+        \item $s_{n}$ is an accepting state of $M$, so it is by definition reachable from the initial state $P$ of $M_{rev}$ by an $\epsilon$-edge ($\delta'(P,\epsilon)=s_{n}$)
+        \item $s_{0}$ is a starting state of $M$, so it is an accepting state of $M_{rev}$
+    \end{itemize}
+    Therefore, the computation $P,s_{n},s_{n-1},\cdots,s_{2},s_{1}$ is accepting on the automaton $M_{rev}$, since it is allowed by the transition function $\delta'$, starts in an initial state and ends in an accepting state. It represents the word $x_{rev}$, so we have shown that $M_{rev}$ accepts $x_{rev}$.
+\end{itemize}
+This means that $L_{rev}=L(M_{rev})$. \qedsymbol{}
+
+Note that we do not necessarily preserve determinism: If $M$ is a deterministic finite automaton with $\lvert Q_{acc} \rvert > 1$, our automaton $M_{rev}$ will be non-deterministic.\\
+However, we were still able to build a finite automaton $M_{rev}$ which accepts our language $L_{rev}$. Therefore, the reversal of a language is an operation that preserves regularity of languages.
+
+\subsection{(b)}
+$$L/L' = \left\{ x\mid \exists y \in L' : xy \in L\right\}$$
+\noindent (i)\\
+\begin{tikzpicture}[->,shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[state, initial] (S)   {$S$}; 
+   \node[state, accepting] (A) [above=of S] {$A$};  % Only A is accepting now
+   \node[state] (B) [right=of S] {$B$}; 
+   \node[state] (C) [above =of B] {$C$};
+
+   \path[->]
+    (S) edge  node {1} (B)
+        edge  node {0} (A)
+    (A) 
+        edge  node {0,1} (C)
+
+    (B) edge node {0} (C)
+
+    (C) edge node {1} (S);
+\end{tikzpicture}
+
+\noindent (ii)\\
+Intuition:\\
+Accepting states are all states that are reached when reading a word $y \in L'$ from a state $q \in Q$.\\
+Now when reading a word $x \in L/L'$ from the starting state we end up in any of the previously described states.
+
+Generalization:\\
+Let $M = (Q, \Sigma, \delta, q_0, Q_{acc})$ be an automaton that accepts the language L s.t. $L(M) = L$.\\
+Construct $M(L/L') = (Q, \Sigma, \delta, q_0, Q'_{acc})$, s.t. for any accepting state $q \in Q'_{acc}$  it holds that  $\exists y \in L'$  $: \delta^*(q_0,xy) \in Q_{acc}$ and $x \in L/L'$.
+
+Proof:
+\begin{itemize}
+    \item[$\supseteq$:] let $x \in L / L'$
+      $=> \exists y \in L'$, s.t. $xy \in L$
+
+     $ => \delta^{*}(q_0 , xy) \in Q_{acc}$ $\Leftrightarrow$ (lemma 1.5 in script) $ \delta^{*}(\delta^{*}(q_0, x),y) \in Q_{acc}$  $\Rightarrow$ $ \delta^{*}(q_0,x) \in Q'_{acc}$ and $x \in L(M{L/L'})$.
+
+    \item[$\subseteq$:] Let $x' \in L(M_{L/L'})$.\\
+    $\Rightarrow \delta^{*}(q_0, x) \in Q'_{acc}$ $\Rightarrow$ by construction $\exists y \in L'$ with $\delta^{*}(\delta^{*}(q_0,x), y) \in Q_{acc}$ $\Leftrightarrow$ (lemma 1.5) $\delta^{*}(q_0, xy) \in Q_{acc}$ $\Rightarrow$ $xy \in L$ and $x \in L / L'$. \\
+and therefore $L/L'$ = $L(M_{L/L'})$. \qedsymbol{}
+
+\end{itemize}
+
+
+\end{document}

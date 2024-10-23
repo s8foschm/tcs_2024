@@ -1,0 +1,67 @@
+\input{header}
+\input{macros}
+\sheet{1}
+\begin{document}
+
+\setcounter{section}{1}
+\section{Product Automata}
+\begin{tabular}{cc}
+
+\begin{tikzpicture}[->,shorten >=1pt, auto,node distance=2cm,on grid,semithick,inner sep=2pt,bend angle=45]
+    \node[initial, state, accepting] (S)              {S};
+    \node[state, accepting]          (A) [right of=S] {A};
+    \node[state]                     (B) [right of=A] {B};
+
+    \path (S) edge [loop above] node {0} ()
+          (A) edge [loop above] node {1} ()
+          (B) edge [loop above] node {0} ()
+          (S) edge              node {1} (A)
+          (A) edge [bend left]  node {0} (B)
+          (B) edge [bend left]  node {1} (A);
+    
+\end{tikzpicture}
+&
+
+\begin{tikzpicture}[->,shorten >=1pt, auto,node distance=2cm,on grid,semithick,inner sep=2pt,bend angle=45]
+    \node[initial, state]   (S')               {S'};
+    \node[state, accepting] (A') [right of=S'] {A'};
+    \path (S') edge [bend left] node {0,1} (A')
+          (A') edge [bend left] node {0,1} (S');
+\end{tikzpicture}
+
+\end{tabular}
+
+The product automaton of these two automata is:
+
+\begin{tikzpicture}[->,node distance=4cm]
+\node[initial,state,accepting](A)              {S, S'};
+\node[state,accepting]        (B) [right of=A] {A, S'};
+\node[state,accepting]        (C) [right of=B] {B, S'};
+\node[state]                  (D) [below of=A] {S, A'};
+\node[state]                  (E) [right of=D] {A. A'};
+\node[state,accepting]        (F) [right of=E] {B, A'};
+
+\path (A) edge [bend left=20] node [left]           {0} (D)
+      (D) edge [bend left=20] node [right]          {0} (A)
+      (A) edge                node [pos=0.3, left]  {1} (E)
+      (D) edge                node [pos=0.3, left]  {1} (B)
+      (B) edge [bend left=20] node [left]           {1} (E)
+      (E) edge [bend left=20] node [right]          {1} (B)
+      (B) edge [bend left=10] node [pos=0.2, above] {0} (F)
+      (F) edge [bend left=10] node [pos=0.2, below] {1} (B)
+      (E) edge [bend left=10] node [pos=0.2, above] {0} (C)
+      (C) edge [bend left=10] node [pos=0.2, below] {1} (E)
+      (C) edge [bend left=20] node [left]           {0} (F)
+      (F) edge [bend left=20] node [right]          {0} (C);
+\end{tikzpicture}
+
+The accepting states were defined as follows:\\
+the product automaton should accept exactly the words that not both $M_1$ and $M_2$ accept.
+\begin{align*}
+    Q_{acc}&=\left\{(a,b) \mid \neg(a \in Q_{acc,1} \wedge b \in Q_{acc,2})\right\}\\
+    &= \left\{(a,b) \mid a \notin Q_{acc,1} \vee a \notin Q_{acc,2}\right\}\\
+    &= \left\{ (S,S'),(A,S'),(B,S'),(B,A')\right\}
+\end{align*}
+
+
+\end{document}
