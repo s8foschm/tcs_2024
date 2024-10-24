@@ -25,7 +25,9 @@ jobs:
 
     - name: Compile LaTeX document
       run: |
-        pdflatex ex1.tex  # Replace 'main.tex' with your main LaTeX file
+        pdflatex sheet1/ex1.tex
+        pdflatex sheet1/ex2.tex
+        pdflatex sheet1/ex3.tex
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v3
       with:
