@@ -27,6 +27,7 @@ $$L_{rev} = \left\{x\mid \exists l \in \mathbb{N}: x = x_{1}\cdots x_{l} \text{ 
 Proof:\\
 For every regular language, there is by definition a finite automaton that accepts it.\\
 We prove that the reversal of a regular language is also regular by showing that, given an automaton $M=(Q,\Sigma,\delta,q_{0},Q_{acc})$ that accepts a language $L$, we can construct an automaton $M_{rev}=(Q',\Sigma',\delta',q_{0}',Q_{acc}')$ that accepts the language $L_{rev}$.\\
+For reasons we will see later, the reversal of a DFA $M$ will become non-deterministic.\\
 For constructing our automaton $M_{rev}$, we proceed as follows:
 \begin{itemize}
     \item we reuse the same states $Q$ of $M$, but add one new starting state $P$.\\
@@ -34,8 +35,8 @@ For constructing our automaton $M_{rev}$, we proceed as follows:
     \item we reuse the same input alphabet $\Sigma' = \Sigma$
     \item for the transition function, we use the inverse function of the previous transition function.\\
     \begin{align*}
-        \delta'(q_{1}, x) &= q_{2}&\forall \delta(q_{2},x) = q_{1}\\
-        \delta'(P, \epsilon) &= q_{s} &\forall q_{s}\in Q_{acc}\\
+        \delta'(q_{1}, x) &= \left\{q_{2}\right\}&\forall \delta(q_{2},x) = q_{1}\\
+        \delta'(P, \epsilon) &= \bigcup_{q \in Q_{acc}} q\\
     \end{align*}
     \item we chose our newly added state as the starting state: $q_{0}' = P$
     \item our previous starting state becomes our only accepting state: $Q_{acc}' = \left\{q_{0}\right\}$
@@ -47,7 +48,7 @@ We have a word $x\in L$ which is accepted by $M$, so $\delta^{*}(q_{0},x)\in Q_{
     %Let $w$ be a word which is accepted by $M_{rev} \Leftrightarrow \delta ^{*}(q_{0},x)\in Q_{acc}'$\\
     Let $x=x_{1}x_{2}\cdots x_{n-1}x_{n}$ and $s_{0},s_{1},\cdots,s_{n}$ and accepting computation of $M$ on $w$.\\
     Therefore $\forall 0 \leq k \textless n: \delta(s_{k},x_{k+1})=s_{k+1}$  by Definition 1.2\\
-    By definition of $\delta'$, that gives us: $\forall 0 \leq k \textless n: \delta'(s_{k+1}, x_{n+1}) = s_{k}$\\
+    By definition of $\delta'$, that gives us: $\forall 0 \leq k \textless n: \delta'(s_{k+1}, x_{n+1}) = \left\{s_{k}\right\}$\\
     %We can extrapolate this into: $\delta'^{*}(s_{n}, x_{n}x_{n-1}\cdots x_{2}x_{1}) = s_{0}$ by Lemma 1.5\\
     Since $s_{0},s_{1},\cdots,s_{n}$ is an accepting computation of $M$ on $w$, by definition:
     \begin{itemize}
