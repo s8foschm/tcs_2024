@@ -36,7 +36,7 @@ For constructing our automaton $M_{rev}$, we proceed as follows:
     \item for the transition function, we use the inverse function of the previous transition function.\\
     \begin{align*}
         %\delta'(q_{1}, x) &= \left\{q_{2}\right\}&\forall \delta(q_{2},x) = q_{1}\\
-        \delta'(q_{1}, x) &= \left\{q_{2}\mid \forall \delta(q_{2},x) = q_{1}\right\}\\
+        \delta'(q_{1}, x) &= \left\{q_{2} \in Q' \mid \exists x \in \Sigma :\delta(q_{2},x) = q_{1}\right\}\\
         \delta'(P, \epsilon) &= \bigcup_{q \in Q_{acc}} q\\
     \end{align*}
     \item we chose our newly added state as the starting state: $q_{0}' = P$
