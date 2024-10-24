@@ -9,6 +9,6 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: sheet1/ex1.pdf
-                     sheet1/ex2.pdf
-                     sheet1/ex3.pdf
+          root_file: sheet1/ex1.tex
+                     sheet1/ex2.tex
+                     sheet1/ex3.tex
