@@ -1,35 +1,40 @@
 name: LaTeX Build
 
-# Controls when the workflow will run
 on:
   push:
     branches:
-      - main     # Run this action on pushes to the main branch
+      - main
   pull_request:
     branches:
-      - main     # Also run on pull requests to the main branch
+      - main
 
-# Defines the job for building the LaTeX project
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v3  # Check out the repository so we can access the files
+    # Checkout the repository code
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-    - name: Install TeX Live
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-full  # Install full TeX Live distribution
+    # Set up LaTeX environment
+    - name: Set up LaTeX environment
+      uses: dante-ev/latex-action@v2
 
-    - name: Compile LaTeX document
+    # Compile each LaTeX file in the subdirectories
+    - name: Compile LaTeX files
       run: |
-        pdflatex sheet1/ex1.tex
-        pdflatex sheet1/ex2.tex
-        pdflatex sheet1/ex3.tex
-    - name: Upload PDF artifact
+        for dir in sheet1 sheet2 sheet3; do                  # List your directories here
+          cd $dir
+          for file in ex*.tex; do                            # Process each "exX.tex" file
+            latexmk -pdf -interaction=nonstopmode $file || exit 1  # Build PDF, exit if error
+          done
+          cd ..
+        done
+
+    # Upload all PDFs as artifacts
+    - name: Upload PDFs
       uses: actions/upload-artifact@v3
       with:
-        name: main.pdf     # The output file you want to upload
-        path: ./main.pdf   # Path to the generated PDF file
+        name: compiled-pdfs
+        path: "**/*.pdf"  # Finds all PDFs in subdirectories
