@@ -9,24 +9,98 @@
 
 $A = \left\{ x \in \left\{0,1\right\} ^{*} \mid \lvert x \rvert \text{ is even} \right\}$
 
+$A = L(((0+1)(0+1))^*)$
+
+Kleene Closure of either empty or contains the an arbitrary number of 2 symbols.
+
 \subsection{(b)}
 
 $B = \left\{ x \in \left\{0,1\right\} ^{*} \mid x \text{ contains \textit{exactly} three } 0s \right\}$
+
+$B = L(1^*01^*01^*01^*)$
+We accept 3x 0's and any amount of 1's between and around them.
 
 \subsection{(c)}
 
 $C = \left\{ x \in \left\{0,1\right\} ^{*} \mid x \text{ does not contain two (or more) consecutive } 0s \right\}$
 
+$C = L(((01)^*+(10)^*+1^*) + 0)$
+We accept the kleene closure of either a sequence of 01's or 10's followed by a 1 or an arbitrary amount of 1's 
 \subsection{(d)}
 
 $D = \left\{ x \in \left\{0,1\right\} ^{*} \mid x \text{ \texttt{mod} } 3 = 0 \right\}$
+
+$D = L(0*(1(1+01^*01))^*)$
+
+The regular expression is derived by the general algorithm shown in the lecture on the automaton of E1.1 d) :
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state,accepting](A) {0};
+\node[state](B) [right of=A] {1};
+\node[state](C) [right of=B] {2};
+
+
+\path (A) edge [bend left]  node {1} (B)
+          edge [loop above] node {0} (A)
+      (B) edge [bend left]  node {0} (C)
+          edge [bend left]  node {1} (A)
+      (C) edge [bend left]  node {0} (B)
+          edge [loop above] node {1} (C);
+\end{tikzpicture}
 
 \subsection{(e)}
 
 $E = \left\{ x \in \left\{0,1,2,3\right\} ^{*} \mid x = x_1x_2\ldots x_{l-1}x_l \text{ and } \prod_{i=1}^{l} x_i = 12\right\}$
 
+$E = L(1^*((21^*21^*31^*)+(21^*31^* + 31^*21^*)2)1*)$
+
+By observing the Automaton in E1.1 e):
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state](A) {1};
+\node[state](B) [right of=A] {2};
+\node[state](C) [right of=B] {3};
+\node[state](D) [right of=C] {4};
+\node[state](E) [right of=D] {6};
+\node[state,accepting](F) [right of=E] {12};
+\node[state](G) [below=of D] {not valid};
+
+\path (A) edge [loop above]  node {1} (A)
+          edge  node {2} (B)
+          edge [bend left] node {3} (C)
+          edge [bend left=-30] node {0} (G)
+
+      (B) edge [loop right]  node {1} (B)
+          edge [bend left=80] node {2} (D)
+          edge [bend left=110] node {3} (E)
+          edge [bend left=-30] node {0} (G)
+
+      (C) edge [loop right]  node {1} (C)
+          edge [bend left=80] node {2} (E)
+          edge [bend left=-30] node {0,3} (G)
+          
+      
+      (D) edge [loop right]  node {1} (D)
+          edge [bend left=90] node {3} (F)
+          edge [bend left=-30] node {0,2} (G)
+          
+           
+      (E) edge [loop below]  node {1} (E)
+          edge node {2} (F)
+          edge [bend left=-30] node {0,3} (G)
+          
+      (F) edge [loop right]  node {1} (F)
+          edge [bend left=30] node {0,2,3} (G)
+          
+      (G) edge [loop below]  node {0,1,2,3} (G);
+\end{tikzpicture}
+
+We can build this Expression by following the possible paths of the Automaton backwards from the accepting state 12. 
 \subsection{(f)}
 
 $F = \left\{ x \in \left\{1,2,3\right\} ^{*} \mid \lvert x \rvert \geq 1 \text{ and } x = x_1x_2\ldots x_{l-1}x_l \text{ and } x_1 \geq x_2 \geq \ldots \geq x_{l-1} \geq x_l \right\}$
 
+$F = L(3^*2^*1^*)$
+
+The expression preserves descending order of possible values {1,2,3}
 \end{document}

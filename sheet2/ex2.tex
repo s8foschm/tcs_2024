@@ -16,4 +16,47 @@
           (A) edge [bend right=20] node [above] {1}   (X)
               edge [bend left=30]  node         {0,1} (S);
 \end{tikzpicture}
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+    \node[initial, state]  (S)              {S};
+    \node[state]           () [above of= X] {$\emptyset$};
+    \node[state]           () [right of=S] {X};
+    \node[state,accepting] () [right of=X] {A};
+    \node[state]            (SX) [below of= S] {SX};
+    \node[state,accepting]            (XA) [below of= X] {XA};
+    \node[state,accepting]            (SA) [below of= A] {SA};
+    \node[state,accepting]            (SXA) [ below  of= XA] {SXA};
+
+    \path (S) edge [loop above]    node         {0} ()
+              edge                 node         {1}   (SX)
+          (X) edge                 node         {0}   (A)
+          (A) edge                 node [above] {1}   (SX)
+              edge [bend right=40]  node         {0} (S)
+          (SX) edge [loop left=100] node         {1}   (SX)
+              edge [bend right=120 ,out=-90, in=-90]  node         {0} (SA)
+        (XA) edge  node [above] {1}   (SX)
+              edge   node         {0} (SA)
+        (SA)[->] edge [bend right=20] node [above] {1}   (SX)
+              [->]edge [bend right=150, out=-120, in=-120]  node         {0} (S)
+        (SXA) edge              node [above] {1}   (SX)
+              edge            node         {0} (SA);
+\end{tikzpicture}
+
+Please note the each state represents $S \subset P(Q)$ where Q is the set of states of the above automaton and P(Q) it's power set.
+
+We can simplify the Automaton to:
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+    \node[initial, state]  (S)              {S};
+    \node[state]           (SX) [right of=S] {SX};
+    \node[state,accepting] (SA) [right of=X] {SA};
+
+    \path (S) edge [loop above]    node         {0} ()
+              edge                 node         {1}   (SX)
+          (SX) edge [bend right=20] node         {0}   (SA)
+                edge [loop above] node {1} () 
+          (SA) edge [bend right=20] node [above] {1}   (SX)
+              edge [bend left=30]  node         {0} (S);
+\end{tikzpicture}
+
 \end{document}
