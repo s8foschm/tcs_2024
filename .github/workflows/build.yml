@@ -19,7 +19,7 @@ jobs:
 
     # Set up LaTeX environment
     - name: Set up LaTeX environment
-      uses: dante-ev/latex-action@v2
+      uses: xu-cheng/latex-action@v3
 
     # Compile each LaTeX file in the subdirectories
     - name: Compile LaTeX files
