@@ -13,25 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository code
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Compile each LaTeX file within its directory
-    - name: Compile LaTeX files
+    - name: Set up LaTeX environment
       uses: xu-cheng/latex-action@v2
       with:
-        root_file: |
-          sheet1/ex1.tex
-          sheet1/ex2.tex
-          sheet1/ex3.tex
-          sheet2/ex1.tex
-          sheet2/ex2.tex
-          sheet2/ex3.tex
+        root_file: ''  # Set this empty since we’ll specify manually
         compiler: latexmk
         latexmk_flavor: pdflatex
 
-    # Upload all PDFs as artifacts
+    # Compile each .tex file individually within its respective directory
+    - name: Compile each LaTeX file in its directory
+      run: |
+        for sheet_dir in sheet1 sheet2; do
+          for tex_file in "$sheet_dir"/ex*.tex; do
+            cd "$sheet_dir"  # Move into the sheet directory
+            latexmk -pdf -interaction=nonstopmode "$(basename "$tex_file")"  # Compile the .tex file
+            cd -  # Move back to root directory
+          done
+        done
+
+    # Upload all generated PDFs as artifacts
     - name: Upload PDFs
       uses: actions/upload-artifact@v3
       with:
