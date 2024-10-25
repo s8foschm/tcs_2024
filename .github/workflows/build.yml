@@ -13,9 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository code
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    # Pre-build step: Copy header and macros files into each directory
+    - name: Copy header and macros files
+      run: |
+        for dir in sheet1 sheet2 sheet3; do
+          cp header.tex $dir/
+          cp macros.tex $dir/
+        done
 
     # Compile each LaTeX file in the subdirectories
     - name: Compile LaTeX files
