@@ -16,15 +16,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up LaTeX environment
-      uses: xu-cheng/latex-action@v2
-      with:
-        root_file: ''  # Set this empty since we’ll specify manually
-        compiler: latexmk
-        latexmk_flavor: pdflatex
+    # Install LaTeX with latexmk
+    - name: Install LaTeX
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-full latexmk
 
     # Compile each .tex file individually within its respective directory
-    - name: Compile each LaTeX file in its directory
+    - name: Compile LaTeX files
       run: |
         for sheet_dir in sheet1 sheet2; do
           for tex_file in "$sheet_dir"/ex*.tex; do
