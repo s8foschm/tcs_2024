@@ -1,0 +1,19 @@
+\input{header}
+\input{macros}
+\sheet{1}
+\begin{document}
+\setcounter{section}{1}
+\section{Powerset construction}
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+    \node[initial, state]  (S)              {S};
+    \node[state]           (X) [right of=S] {X};
+    \node[state,accepting] (A) [right of=X] {A};
+
+    \path (S) edge [loop above]    node         {0,1} ()
+              edge                 node         {1}   (X)
+          (X) edge [bend right=20] node         {0}   (A)
+          (A) edge [bend right=20] node [above] {1}   (X)
+              edge [bend left=30]  node         {0,1} (S);
+\end{tikzpicture}
+\end{document}
