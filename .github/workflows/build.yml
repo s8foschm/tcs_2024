@@ -17,20 +17,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Set up LaTeX environment
-    - name: Set up LaTeX environment
-      uses: xu-cheng/latex-action@v3
-
     # Compile each LaTeX file in the subdirectories
     - name: Compile LaTeX files
-      run: |
-        for dir in sheet1 sheet2 sheet3; do                  # List your directories here
-          cd $dir
-          for file in ex*.tex; do                            # Process each "exX.tex" file
-            latexmk -pdf -interaction=nonstopmode $file || exit 1  # Build PDF, exit if error
-          done
-          cd ..
-        done
+      uses: xu-cheng/latex-action@v2
+      with:
+        root_file: |
+          sheet1/ex1.tex
+          sheet1/ex2.tex
+          sheet1/ex3.tex
+          sheet2/ex1.tex
+          sheet2/ex2.tex
+          sheet2/ex3.tex
+        compiler: latexmk
+        latexmk_flavor: pdflatex
 
     # Upload all PDFs as artifacts
     - name: Upload PDFs
