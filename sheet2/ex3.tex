@@ -6,4 +6,53 @@
 \setcounter{section}{2}
 \section{Homomorphisms}
 
+\subsection{(a)}
+We are indeed convinced that that $h(\epsilon) = \epsilon$ and that $h$ is uniquely determined given $h(\sigma)$ for every $\sigma \in \Sigma$.
+
+\subsection{(b)}
+$A=L(a*b*c)$\\
+$B=L((01)*2)$\\
+
+Construct the homomorphism $h$ such that\todo{do we need to prove that this is indeed a homomorphism and/or that it transforms A into B??}:
+\begin{align*}
+    h(\epsilon)&=\epsilon\\
+    h(a\sigma)&=01\sigma\\
+    h(b\sigma)&=01\sigma\\
+    h(c\sigma)&=2\sigma\\
+\end{align*}
+
+\subsection{(c)}
+
+Let $K$ be the language given by the automaton:\\
+\begin{tikzpicture}[->,node distance=2cm, auto]
+    \node[initial, state]   (S)              {S};
+    \node[state]            (A) [right of=S] {A};
+    \node[state, accepting] (B) [right of=A] {B};
+
+    \path (S) edge             node {0}   (A)
+          (A) edge             node {0,1} (B)
+          (B) edge [bend left] node {1}   (S);
+\end{tikzpicture}
+
+The language $h(K)$ is going to be given by the automaton:\\
+\begin{tikzpicture}[->, node distance=2cm, auto]
+    \node[initial, state]   (S)                    {S};
+    \node[state]            (M) [above right of=S] {M};
+    \node[state]            (A) [below right of=M] {A};
+    \node[state]            (N) [above right of=A] {N};
+    \node[state, accepting] (B) [below right of=N] {B};
+
+    \path (S) edge             node {a} (M)
+          (M) edge             node {b} (A)
+          (A) edge             node {a} (N)
+          (N) edge             node {b} (B)
+          (A) edge             node {a} (B)
+          (B) edge [bend left] node {0} (B);
+
+\end{tikzpicture}
+
+\subsection{(d)}
+
+\subsection{(e)}
+
 \end{document}
