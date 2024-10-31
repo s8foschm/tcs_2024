@@ -90,19 +90,33 @@ We keep the same starting state $q_{0}$ and accepting states $Q_{acc}$.\\
 
 
 \subsection{(e)}
+Let \( M = (Q, \Sigma, \delta, q_0, Q_{acc}) \) be an automaton that accepts the language \( D \) such that \( L(M) = D \).
 
-Let $M = (Q, \Sigma, \delta, q_0, Q_{acc})$ be an automaton that accepts the language D s.t. $L(M) = D$.\\
-Construct $M' = (Q, \Sigma, \delta', q_0, Q_{acc})$, where $\delta'(q,x) = \delta^*(q, h(x))$.
+\textbf{Intuition:} If we are in state \( q \in Q \) and read a symbol \( a \in \Gamma \) on \( M' \) (the automaton we are constructing for \( h^{-1}(D) \)), we want to reach the state \( p \in Q \) that reading \( h(a) \in \Sigma^* \) on \( M \) from state \( q \) would bring us. This can be formalized as follows:
 
-Proof:
+Construct \( M' = (Q, \Gamma, \delta', q_0, Q_{acc}) \), where \( \delta'(q, x) = \delta^*(q, h(x)) \) such that \( L(M') = h^{-1}(D) \).
+
+\textbf{Proof:}
 \begin{itemize}
-    \item[$\supseteq$:] Let \( h(a) \in h^{-1}(D) \), then \( \delta^*(q_0,h(a)) \in Q_{\text{acc}} \).
+    \item[$\supseteq$:] Let \( h(a) \in h^{-1}(D) \), then \( \delta^*(q_0, h(a)) \in Q_{\text{acc}} \).
+    
+    Since \( h \) has the property that \( h(xy) = h(x) h(y) \) for \( x, y \in \text{domain}(h) \) (where domain\( (h) \) is the domain of \( h \)), we can write \( h(a) = h(a_1) h(a_2) \dots h(a_{|a|}) \) where \( a = a_1 a_2 \dots a_{|a|} \). Using this along with Lemma 1.5, we have:
+    
     \[
-    \Rightarrow \delta^*(\delta^*(\dots(\delta^*(q_0,h(a_0)), \dots, h(a_{|a|-1})), h(a_{|a|})) \in Q_{\text{acc}}
+    \delta^*(q_0, h(a)) \in Q_{\text{acc}}
     \]
+    \[
+    \Leftrightarrow \delta^*(\delta^*(\dots(\delta^*(q_0, h(a_0)), \dots, h(a_{|a|-1})), h(a_{|a|})) \in Q_{\text{acc}}
+    \]
+    
+    By the construction of \( M' \),
+    
     \[
     \Rightarrow \delta'(\delta'(\dots(\delta'(q_0, a_0), \dots, a_{|a|-1}), a_{|a|}) \in Q_{\text{acc}}
     \]
+    
+    Using Lemma 1.5,
+    
     \[
     \Leftrightarrow \delta'^*(q_0, a) \in Q_{\text{acc}}
     \]
@@ -110,21 +124,36 @@ Proof:
     \Rightarrow a \in L(M')
     \]
 
-    \item[$\subseteq$:] Let \( a \in L(M') \).
+    \item[$\subseteq$:] Now, let \( a \in L(M') \), where \( a = a_1 a_2 \dots a_{|a|} \).
+    
     \[
     \Rightarrow \delta'^*(q_0, a) \in Q_{\text{acc}}
     \]
+
+    By definition of \( \delta^* \),
+
     \[
     \Leftrightarrow \delta'(\delta'(\dots(\delta'(q_0, a_0), \dots, a_{|a|-1}), a_{|a|}) \in Q_{\text{acc}}
     \]
+
+    By the construction of \( M' \),
+
     \[
     \Rightarrow \delta^*(\delta^*(\dots(\delta^*(q_0, h(a_0)), \dots, h(a_{|a|-1})), h(a_{|a|})) \in Q_{\text{acc}}
+    \]
+
+    By Lemma 1.5,
+
+    \[
+    \Rightarrow \delta^*(q_0, h(a)) \in Q_{\text{acc}}
     \]
     \[
     \Rightarrow h(a) \in h^{-1}(D)
     \]
+
     \qedsymbol
 \end{itemize}
+
 
 
 \end{document}
