@@ -100,7 +100,7 @@ We can build this Expression by following the possible paths of the Automaton ba
 
 $F = \left\{ x \in \left\{1,2,3\right\} ^{*} \mid \lvert x \rvert \geq 1 \text{ and } x = x_1x_2\ldots x_{l-1}x_l \text{ and } x_1 \geq x_2 \geq \ldots \geq x_{l-1} \geq x_l \right\}$
 
-$F = L(3^*2^*1^*)$
+$F = L((33^*2^*1^*)+(3^*22^*1^*)+(3^*2^*11^*))$
 
-The expression preserves descending order of possible values {1,2,3}
+The expression preserves descending order of possible values {1,2,3}. The different cases assure that, despite the optional $*$ (which could also produce the empty word), $\lvert x\rvert \geq 1$ holds.
 \end{document}

@@ -73,7 +73,7 @@ Let $M=(Q,\Sigma,\delta,q_{0},Q_{acc})$ be a finite automaton and $L(M)=C$.\\
 We construct the automaton $M'=(Q',\Gamma,\delta', q_{0}, Q_{acc})$.
 
 $Q'=Q\cup \{ q_{s,a,i}\mid s\in Q, a \in \Sigma, i = \lvert h(a) \rvert \} $\\
-For every $h(a)$ with $a \in \Sigma$, we add $\lvert h(a)\rvert -1$ additional states.\\
+For every $h(a)$ with $a \in \Sigma$, we add $\lvert h(a)\rvert -1$ additional states. Note that the states from the original automaton $M$ do not get indices, but the newly added states have indices.\\
 Our alphabet is $\Gamma$, as given in the exercise.\\
 We define our transition function $\delta'$ as follows:\\
 \begin{align*}
@@ -85,7 +85,9 @@ We define our transition function $\delta'$ as follows:\\
 \end{cases}
 &q\notin Q
 \end{align*}
-We keep the same starting state $q_{0}$ and accepting states $Q_{acc}$.\\
+We keep the same starting state $q_{0}$ and accepting states $Q_{acc}$.
+
+% The proof is left as an exercise to the reader.
 
 
 
