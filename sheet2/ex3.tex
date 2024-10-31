@@ -13,13 +13,14 @@ We are indeed convinced that that $h(\epsilon) = \epsilon$ and that $h$ is uniqu
 $A=L(a*b*c)$\\
 $B=L((01)*2)$\\
 
-Construct the homomorphism $h$ such that\todo{do we need to prove that this is indeed a homomorphism and/or that it transforms A into B??}:
+Construct the homomorphism $h$ such that:
 \begin{align*}
     h(\epsilon)&=\epsilon\\
     h(a)&=01\\
     h(b)&=01\\
     h(c)&=2\\
 \end{align*}
+We assume, from the formulation of the exercise, that it is not necessary to prove that this is indeed a homomorphism.
 
 \subsection{(c)}
 
@@ -88,7 +89,63 @@ We define our transition function $\delta'$ as follows:\\
 We keep the same starting state $q_{0}$ and accepting states $Q_{acc}$.
 
 % The proof is left as an exercise to the reader.
+\vskip 10pt
+We prove that $h(C)$ is regular by proving that $L(M') = h(L)$.\\
+To do this, we use the fact that since homomorphisms apply to individual letters of the alphabet, and due to the property of homomorphisms described in the exercise, we can use them to transform a computation.\\
 
+%Let \( C \subseteq \Sigma^* \) be a regular language, and let \( M = (Q, \Sigma, \delta, q_0, Q_{\text{acc}}) \) be a DFA such that \( L(M) = C \).
+
+%Let \( h : \Sigma^* \to \Gamma^* \) be a homomorphism. We construct \( M' = (Q', \Gamma, \delta', q_0, Q_{\text{acc}}) \) such that \( L(M') = h(C) \).
+
+%\[
+%Q' = Q \cup \{q_{s,a,i} \mid s \in Q, a \in \Sigma, 1 \le i < |h(a)| \}.
+%\]
+
+%\[
+%\delta' : Q' \times \Gamma \to Q' \text{ is defined by}
+%\]
+%\[
+%\delta'(q, w_1) = q_{a,1}, \quad \delta'(q_{a,i}, w_{i+1}) = q_{a,i+1} \text{ for } 1 \le i < k-1, \quad \delta'(q_{a,k-1}, w_k) = \delta(q, a),
+%\]
+%where \( q \in Q \) and \( h(a) = w_1w_2 \ldots w_k \) with \( w_i \in \Gamma \).
+
+%\[
+%q_0' = q_0
+%\]
+%\[
+%Q_{\text{acc}}' = Q_{\text{acc}}.
+%\]
+
+1. Show \( L(M') \subseteq h(C) \):
+
+\[
+w \in L(M') \implies \exists x = a_1a_2 \ldots a_n \in \Sigma^* \text{ with } x \in C \text{ and } w = h(a_1)h(a_2) \ldots h(a_n).
+\]
+\[
+\implies w = h(x) \in h(C).
+\]
+\[
+\therefore L(M') \subseteq h(C).
+\]
+
+2. Show \( h(C) \subseteq L(M') \):
+
+\[
+w \in h(C) \implies \exists x = a_1a_2 \ldots a_n \in C \text{ with } w = h(a_1)h(a_2) \ldots h(a_n).
+\]
+\[
+x \in C \implies M \text{ recognizes } x \Rightarrow \delta^*(q_0, x) \in Q_{\text{acc}}.
+\]
+By construction, \( M' \) simulates \( h(a_i) = w_1w_2 \ldots w_k \) for each \( a_i \) in \( x \), thus \( w \in L(M') \).
+\[
+\therefore h(C) \subseteq L(M').
+\]
+
+\textbf{Conclusion}:
+\[
+L(M') = h(C).
+\]
+Thus, \( h(C) \) is regular.
 
 
 \subsection{(e)}
