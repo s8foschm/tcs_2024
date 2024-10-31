@@ -51,8 +51,41 @@ The language $h(K)$ is going to be given by the automaton:\\
 
 \end{tikzpicture}
 
+The Automaton recognizing $j^-1(k)$: \\
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+    \node[initial, state]   (S)              {S};
+    \node[state]            (A) [right of=S] {A};
+    \node[state, accepting] (B) [right of=A] {B};
+
+    \path (S) edge             node {a}   (A)
+              edge [bend left]             node {b}   (B)
+          (A) edge             node {a}   (B)
+              edge   [bend left]          node {b}   (S);
+\end{tikzpicture}
+
 \subsection{(d)}
 
 \subsection{(e)}
+
+Let $M = (Q, \Sigma, \delta, q_0, Q_{acc})$ be an automaton that accepts the language D s.t. $L(M) = D$.\\
+Construct $M' = (Q, \Sigma, \delta', q_0, Q_{acc})$, where $\delta'(q,x) = \delta^*(q, h(x))$.
+
+Proof:
+\begin{itemize}
+    \item[$\supseteq$:] let $ h(a) \in h^-1(D), $then $ \delta^*(q_0,h(a)) \in Q_acc \\
+    => \delta^*(\delta^*...(\delta^*(q_0,h(a_0)),...,h(a_|a|-1)),h(a_|a|)) \in Q_acc \\
+    =>\delta'(\delta'...(\delta'(q_0,a_0),...,a_|a|-1),a_|a|) \in Q_acc \\
+    <=> \delta'^*(q_0,a) \in Q_acc \\
+    => a \in L(M')
+    $
+    \item[$\subseteq$:]  let $ a \in L(M')\\ 
+     => \delta'^*(q_0,a) \in Q_acc \\
+     <=> \delta'(\delta'...(\delta'(q_0,a_0),...,a_|a|-1),a_|a|) \in Q_acc \\
+     => \delta^*(\delta^*...(\delta^*(q_0,h(a_0)),...,h(a_|a|-1)),h(a_|a|)) \in Q_acc \\
+     => h(a) \in  h^-1(D)
+     $ \qedsymbol{}
+
+\end{itemize}
 
 \end{document}
