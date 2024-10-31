@@ -73,19 +73,35 @@ Construct $M' = (Q, \Sigma, \delta', q_0, Q_{acc})$, where $\delta'(q,x) = \delt
 
 Proof:
 \begin{itemize}
-    \item[$\supseteq$:] let $ h(a) \in h^-1(D), $then $ \delta^*(q_0,h(a)) \in Q_acc \\
-    => \delta^*(\delta^*...(\delta^*(q_0,h(a_0)),...,h(a_|a|-1)),h(a_|a|)) \in Q_acc \\
-    =>\delta'(\delta'...(\delta'(q_0,a_0),...,a_|a|-1),a_|a|) \in Q_acc \\
-    <=> \delta'^*(q_0,a) \in Q_acc \\
-    => a \in L(M')
-    $
-    \item[$\subseteq$:]  let $ a \in L(M')\\ 
-     => \delta'^*(q_0,a) \in Q_acc \\
-     <=> \delta'(\delta'...(\delta'(q_0,a_0),...,a_|a|-1),a_|a|) \in Q_acc \\
-     => \delta^*(\delta^*...(\delta^*(q_0,h(a_0)),...,h(a_|a|-1)),h(a_|a|)) \in Q_acc \\
-     => h(a) \in  h^-1(D)
-     $ \qedsymbol{}
+    \item[$\supseteq$:] Let \( h(a) \in h^{-1}(D) \), then \( \delta^*(q_0,h(a)) \in Q_{\text{acc}} \).
+    \[
+    \Rightarrow \delta^*(\delta^*(\dots(\delta^*(q_0,h(a_0)), \dots, h(a_{|a|-1})), h(a_{|a|})) \in Q_{\text{acc}}
+    \]
+    \[
+    \Rightarrow \delta'(\delta'(\dots(\delta'(q_0, a_0), \dots, a_{|a|-1}), a_{|a|}) \in Q_{\text{acc}}
+    \]
+    \[
+    \Leftrightarrow \delta'^*(q_0, a) \in Q_{\text{acc}}
+    \]
+    \[
+    \Rightarrow a \in L(M')
+    \]
 
+    \item[$\subseteq$:] Let \( a \in L(M') \).
+    \[
+    \Rightarrow \delta'^*(q_0, a) \in Q_{\text{acc}}
+    \]
+    \[
+    \Leftrightarrow \delta'(\delta'(\dots(\delta'(q_0, a_0), \dots, a_{|a|-1}), a_{|a|}) \in Q_{\text{acc}}
+    \]
+    \[
+    \Rightarrow \delta^*(\delta^*(\dots(\delta^*(q_0, h(a_0)), \dots, h(a_{|a|-1})), h(a_{|a|})) \in Q_{\text{acc}}
+    \]
+    \[
+    \Rightarrow h(a) \in h^{-1}(D)
+    \]
+    \qedsymbol
 \end{itemize}
+
 
 \end{document}
