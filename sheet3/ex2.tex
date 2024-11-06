@@ -7,15 +7,45 @@
 \section{Regular languages}
 
 \subsection{(a)}
+\begin{tikzpicture}[->,shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[state, initial] (S)   {$S$}; 
+   \node[state, accepting] (A) [right=of S] {$A$};  % Only A is accepting now
+   \node[state] (AB) [above=of A] {$AB$}; 
+   \node[state] (BC) [below =of A] {$BC$};
 
-\textsc{To-Do.}
+   \path[->]
+    (S) edge  node {a} (A)
+    (A) edge [bend right] node {b} (BC)
+        edge  [loop right] node {c} (C)
+        edge [bend left] node {a} (AB)
+    (BC) edge [loop below] node {b} (C)
+         edge [bend right] node {c} (A)
+    (AB) edge [bend left] node {a} (A);
+\end{tikzpicture}
 
 \subsection{(b)}
-
-\textsc{To-Do.}
-
+$1^*0(1+0(0+1)^*1)$
 \subsection{(c)}
+This can be translated to the number of 1s and number of 0s are either both odd or both even.
 
-\textsc{To-Do.}
+\begin{tikzpicture}[->,shorten >=1pt, node distance=4cm, on grid, auto]
+   \node[state, initial, accepting] (S)   {even 0s even 1s}; 
+   \node[state] (A) [right=of S] {odd 0s even 1s}; 
+   \node[state, accepting] (C) [below=of A] {odd 0s odd 1s}; 
+   \node[state] (D) [left =of C] {even 0s odd 1s};
+
+   \path[->]
+    (S) edge  node {0} (A)
+        edge node {1} (D)
+    (A) edge [bend right] node {0} (S)
+        edge  node {1} (C)
+    (C) edge [bend right] node {1} (A)
+         edge [bend left] node {0} (D)
+    (D) edge [bend left] node {1} (S)
+        edge node {0} (C);
+    
+\end{tikzpicture}
+\\
+\\a regular expression describing this Automaton is E = (11+00+10+01)*
 
 \end{document}
