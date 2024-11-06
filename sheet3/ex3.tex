@@ -12,6 +12,12 @@
 
 \subsection{(b)}
 
-\textsc{To-Do.}
+let $n >= 0$ be given ($n \in N $) .\\
+We choose u = $\epsilon$, v= $1^n$, w= $0^{n+1}$ s.t. $uvw \in B$ and $|v| = n$.\\
+let x,y,z be given s.t. xyz=v and $|y| > 0$ and $x=1^s,y=1^t,z=1^r $ s.t. $ s+t+r = n $ and $ t>=1$\\
+\\
+Now we have $uxy^izw$ = $\epsilon 1^s 1^{t*i} 1^r 0^{n+1}$ = $\epsilon 1^s 1^t 1^r 1^{t * (i-1)} 0^{n+1}$ = $\epsilon 1^n 1^{t(i-1)}0^{n+1}$\\
+
+ now we choose $i \in N$ with $i > 1$, since we also have $t >= 1, $ then the term $t(i-1) >= 1$ for $t >= 1$ and $i > 1$ and thus the term $1^{t * (i-1)}$ is at least $1^1$. this means for i=2, we have  $uxy^2zw$ = $\epsilon 1^s 1^t 1^r 1^{t * (2-1)} 0^{n+1}$ = $\epsilon 1^n 1^{t}0^{n+1}$ = $\epsilon 1^{n + t}0^{n+1}$ with $t>=1$ $ \notin B$ and thus B doesn't fulfill the pumping property and is therefore not regular.   
 
 \end{document}
