@@ -6,12 +6,87 @@
 
 \section{Closure Properties revisited}
 
+$$
+E := (\epsilon + 1^{\ast}0)^{\ast} + \emptyset 1
+$$
+
 \subsection{(a)}
 
-\textsc{To-Do.}
+$$
+E' := (\epsilon + (bb)^{\ast})^{\ast} + \emptyset bb
+$$
 
 \subsection{(b)}
 
-\textsc{To-Do.}
+By the formal syntax for regular expressions, a regular expression is always given by one of six cases: $\underline{\emptyset}$, $\underline{\epsilon}$, $\sigma$, $E+F§$, $EF$ and $E^{\ast}$, where $E$ and $F$ are regular expressions.\\
+We need to define $f_{h}$, which maps regular expressions to regular expressions, such that for all regular expressions $G$, $L(f_{h}(G)) = h(L(G))$ holds.\\
+We define $f_{h}$ as follows:\\
+\begin{itemize}
+    \item $f_{h}(\underline{\emptyset}) = \underline{\emptyset}$
+    \item $f_{h}(\underline{\epsilon}) = \underline{\epsilon}$
+    \item $f_{h}(\sigma) = h(\sigma)$
+    \item $f_{h}(E+F) = f_{h}(E) + f_{h}(F)$
+    \item $f_{h}(EF) = f_{h}(E) f_{h}(F)$
+    \item $f_{h}(E^{\ast}) = f_{h}(E)^{\ast}$
+\end{itemize}
+Now, we need to prove that for all regular expressions $G$, $L(f_{h}(G)) = h(L(G))$ indeed holds.\\
+We prove by structural induction over the regular expression $G$. There are 6 cases to consider: 3 base cases ($G=\underline{\emptyset}$, $G=\underline{\epsilon}$ and $G=\sigma$ with $\sigma \in \Sigma^{\ast}$), and three inductive cases ($G=E+F$, $G=EF$ and $G=E^{\ast}$).\\
+
+We start by proving the 3 base cases:\\
+\begin{itemize}
+    \item $G=\underline{\emptyset}$\\
+    $f_{h}(\underline{\emptyset}) = \underline{\emptyset}$ by definition of $f_{h}$\\
+    $L(f_{h}(\underline{\emptyset})) = L(\underline{\emptyset}) = \emptyset$ by definition of the $L$ function for regular expressions\\
+    $h(\emptyset) = \left\{h(x) \mid x\in \emptyset \right\} = \emptyset$ by definition of the image in exercise E2.3\\
+    From this, we conclude $L(f_{h}(\underline{\emptyset})) = h(L(\underline{\emptyset}))$.\\
+    \item $G=\underline{\epsilon}$\\
+    $f_{h}(\underline{\epsilon}) = \underline{\epsilon}$ by definition of $f_{h}$\\
+    $L(f_{h}(\underline{\epsilon})) = \L(\underline{\epsilon}) = \left\{ \epsilon \right\}$ by definition of the $L$ function for regular expressions\\
+    $h(L(\underline{\epsilon})) = h(\left\{\epsilon\right\}) = \left\{h(x)\mid x\in \left\{\epsilon\right\} \right\} = \left\{ h(\epsilon) \right\} = \left\{\epsilon\right\}$ by exercise E2.3\\
+    From this, we conclude $L(f_{h}(\underline{\epsilon})) = h(L(\underline{\epsilon}))$.\\
+    \item $G=\sigma$, where $\sigma \in \Sigma$\\
+    $f_{h}(\sigma) = h(\sigma)$ by definition of $f_{h}$\\
+    $L(f_{h}(\sigma)) = L(h(\sigma)) = \left\{ h(\sigma) \right\}$ because a homomorphism is by definition uniquely determined for each argument $\sigma$.\\
+    $h(L(\sigma)) = h(\left\{\sigma\right\}) = \left\{ h(x) \mid x\in \left\{ \sigma \right\} \right\} = \left\{h(\sigma)\right\}$\\
+    From this, we conclude that $L(f_{h}(\sigma)) = h(L(\sigma))$.\\
+\end{itemize}
+
+For the inductive cases, we assume that there are regular expressione $E$ and $F$ such that $L(f_{h}(E)) = h(L(E))$ and $L(f_{h}(F)) = h(L(F))$.\\
+We distinguish 3 inductive cases:\\
+\begin{itemize}
+    \item $G = E + F$\\
+    $f_{h}(E+G) = f_{h}(E) + f_{h}(G)$ by definition of $f_{h}$\\
+    $L(f_{h}(E+G)) = L(f_{h}(E) + f_{h}(G)) = L(f_{h}(E)) \cup L(f_{h}(G))$\\
+    $h(L(E+G)) = h(L(E)\cup L(G)) = h(L(E)) \cup h(L(G))$\\
+    Due to our induction hypotheses, we see that $L(f_{h}(E)) \cup L(f_{h}(G)) = h(L(E)) \cup h(L(G))$.\\
+    Therefore, $h(L(EG)) = L(f_{h}(EG))$ is shown under the induction hypotheses.\\
+    \item $G = EF$\\
+    $h(L(EG)) = h(L(E)L(G)) = h(L(E))h(L(G))$\\
+    In the first step, we apply the definition of the $L$ function on regular expressions. In the second step, we apply the definition of homomorphisms from exercise E2.3 $h(xy)=h(x)h(y)$.\\
+    $L(f_{h}(EG)) = L(f_{h}(E)f_{h}(G)) = L(f_{h}(E))L(f_{h}(G))$\\
+    In the first step, we apply the definition of our $f_{h}$ function. In the second step, we apply the definition of the $L$ function again.\\
+    This way, by applying our induction hypotheses to these two intermediate results, we have shown $h(L(EG)) = L(f_{h}(EG))$\\
+    \item $G = E^{\ast}$\\
+    $h(L(E^{\ast})) = \left\{ h(x_{1}x_{2}\ldots x_{m} \mid m \geq 0, x_{i} \in L(E))\right\} = \left\{ h(x_{1})h(x_{2})\ldots h(x_{m}) \mid m \geq 0, x_{i} \in L(E))\right\}$\\
+    This follows from the definition of Kleene Closure and homomorphism, $h(xy)=h(x)h(y)$.\\
+    $L(f_{h}(E^{\ast})) = L(f_{h}(E)^{\ast}) = L(f_{h}(E))^{\ast}$\\
+    By the definition of $f_{h}$ and $L$.\\
+    By applying our induction hypothesis, we know $L(f_{h}(E))^{\ast} = h(L(E))^{\ast}$.\\
+    We will show in a side proof, appended after the end of this proof, that we can make the transformation $h(L(E))^{\ast} = (L(E)^{\ast})$.\\
+    Lastly, due to the rules for $L$ on regular expressions, we know $(L(E)^{\ast}) = h(L(E^{\ast}))$, which concludes our proof for this case.\\
+\end{itemize}
+
+We have made a proof by structural induction, handling all cases of the syntax of regular expressions.\\
+Therefore, we have shown that regular expressions are closed over the image of homomorphisms.$\qed$ \\
+
+\quad Side Proof:\\
+We want to prove that for arbitrary homomorphisms $h$ and arbitrary regular expressions $A$, $h(A^{\ast}) = h(A)^{\ast}$ holds.\\
+\begin{align*}
+    h(a^{*}) &= \left\{h(x) \mid x \in A^{\ast} \right\} &\text{Definition image E2.3}\\
+    &= \left\{h(x) \mid x \in \left\{ x_{1}x_{2}\ldots x_{m} \mid x\geq 0, x_{\mu} \in A, 1 \leq \mu \leq m \right\} \right\} &\text{Definition Kleene Closure}\\
+    &= \left\{ h(x_{1})h(x_{2})\ldots h(x_{m}) \mid x\geq 0, x_{\mu} \in A, 1 \leq \mu \leq m \right\} &\text{apply }h\text{ component-wise}\\
+    &= h(A)^{\ast} &\text{Definition Kleene Closure}
+\end{align*}
+We can apply the homomorphism component-wise because of the property of a homomorphism $h(xy)=h(x)h(y)$ given in exercise E2.3.\\
 
 \end{document}
