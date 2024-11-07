@@ -5,12 +5,63 @@
 
 \section{Introduction to transducers}
 
+
+\[
+M = (Q, \Sigma, \Gamma, \delta, f, q_0, Q_{\text{acc}})
+\]
+\[
+f : Q \times \Sigma \to \Gamma^{\ast}
+\]
 \subsection{(a)}
 
-\textsc{To-Do.}
+\[
+\Sigma = \{0, 1\}^{\ast} \quad \text{and} \quad f_{M_1}(x_1 x_2 \cdots x_{2n-1}) = x_1 x_1 x_3 x_3 x_5 x_5 \cdots x_{2n-1} x_{2n-1}
+\]
+\[
+\text{for all } n \in \mathbb{N} \setminus \{0\} \text{ over } \{0, 1\}^{\ast}.
+\]
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state](A) {even};
+\node[state,accepting](B) [right of=A] {odd};
+
+\path (A) edge [bend left] node {0:00,1:11} (B)
+
+         (B) edge [bend left] node {$0:\epsilon$,$1:\epsilon$} (A);
+\end{tikzpicture}
+
+
+Only start state is accepting because  \( f_{M_1} \) is undefined if the length of the input is even.
+
+
 
 \subsection{(b)}
 
-\textsc{To-Do.}
+
+\[
+\Sigma = \{a, b, c, d\}
+\]
+ \[
+ \quad f_{M_2}(x) \text{ outputs the substring of } x \text{ delimited by the first occurrence of } c \text{ and the first subsequent occurrence of } d.
+\]
+
+\begin{tikzpicture}[->,node distance=2cm, auto]
+\node[initial,state](A) {start};
+\node[state](B) [right of=A] {X};
+\node[state,accepting](C) [right of=B] {Y};
+
+\path (A) edge node {c:c} (B)
+               edge [loop above] node {a,b,$d:\epsilon$} (A)
+
+         (B) edge node {d:d} (C)
+              edge [loop above] node {a:1,b:b,c:c} (B)
+
+         (C) edge [loop below] node {a,b,c,$d:\epsilon$} (C);
+
+  
+\end{tikzpicture}
+
+Only the last state being accepting should be enough to not leave stuff like "abc" undefined.
+
 
 \end{document}
