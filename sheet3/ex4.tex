@@ -82,7 +82,7 @@ Therefore, we have shown that regular expressions are closed over the image of h
 \quad Side Proof:\\
 We want to prove that for arbitrary homomorphisms $h$ and arbitrary regular expressions $A$, $h(A^{\ast}) = h(A)^{\ast}$ holds.\\
 \begin{align*}
-    h(a^{*}) &= \left\{h(x) \mid x \in A^{\ast} \right\} &\text{Definition image E2.3}\\
+    h(A^{*}) &= \left\{h(x) \mid x \in A^{\ast} \right\} &\text{Definition image E2.3}\\
     &= \left\{h(x) \mid x \in \left\{ x_{1}x_{2}\ldots x_{m} \mid x\geq 0, x_{\mu} \in A, 1 \leq \mu \leq m \right\} \right\} &\text{Definition Kleene Closure}\\
     &= \left\{ h(x_{1})h(x_{2})\ldots h(x_{m}) \mid x\geq 0, x_{\mu} \in A, 1 \leq \mu \leq m \right\} &\text{apply }h\text{ component-wise}\\
     &= h(A)^{\ast} &\text{Definition Kleene Closure}

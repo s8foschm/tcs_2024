@@ -8,16 +8,52 @@
 
 \subsection{(a)}
 
-\textsc{To-Do.}
+$$
+A = \left\{ 1^{3^{n}} \mid n \in \mathbb{N} \right\}
+$$
+
+%Let $n \geq 0$ be given ($n \in N $).\\
+%Let $u=v=w=1^{3^{n-1}}$, such that $uvw = 1^{3^{n}} \in A$.\\
+%We set $v=xyz$, such that there $s,t,r \in \mathbb{N}$, such that $x=1^{s}, y=1^{t}, z=1^{r}, t\geq 1, s+t+r = 3^{m-1}$
+
+%Now we have $uxy^{i}zw = 1^{3^{n-1}}1^{s}1^{t\cdot i}1^{r}1^{3^{n-1}} = 1^{2\cdot 3^{n-1}}1^{s}1^{r}1^{t\cdot i}$
+
+%Now we chose $i \in N$ with $i>1$, and we want to reach a contradiction.\\
+%To do this, we know that $2\cdot 3^{m-1} + s + r + t = 3^{m}$, and we want to show that there is an $i\in \mathbb{N}$ for which there is no $k\in \mathbb{N}$ such that $2\cdot 3^{m-1} + s + r + i \cdot t = 3^{k}$, which would imply that we have constructed a word $uxy^{i}zw$ which is not in $A$.
+
+%Since $t\geq 1$, we know that $s+r+2\cdot t > s+r+t = 3^{m-1}$.\\
+%If we can show that $s+r+2\cdot t > 3^{m}$, we would have shown that this expression is larger than one power of $3$, and smaller than the next successive power of $3$, so it can't be equal to a power of $3$.
+
+%Let's start by picking $i=2$. We consider two cases: either $s+r+2\cdot t$ is a power of $3$, or it is not.\\
+%If it is not a power of $3$, we have constructed a word which is not part of our initial language $A$, so by the contraposition of the pumping lemma, we have shown that $A$ is not regular.
+
+%If we assume that $s+r+2\cdot t$ is a power of $3$, we chose another value for $i$, namely $i=3$.\\
+%By our assumption, we know that $s+r+2\cdot t = s+r+t+t = 3^{n-1} + t \in \left\{3^{k} \mid k \in \mathbb{N}\right\}$\\
+
+Let $n \geq 0$ be given ($n \in N $).\\
+Select $u = \epsilon$, $v=1^{3^{n}}$, $v=\epsilon$ such that $uvw = \epsilon 1^{3^{n}} \epsilon = 1^{3^{n}} \in A$\\
+We know that $\lvert v \rvert \geq n$.
+
+Let $x,y,z$ be given s.t. $xyz=v$ and $|y| > 0$ and $x=1^{3^{s}},y=1^{3^{t}},z=1^{3^{r}} $ s.t. $ s+t+r = n $ and $ t\geq 1$.
+
+Now we have $uxy^izw = \epsilon 1^{3^{s}} 1^{3^{t\cdot i}} 1^{3^{r}} \epsilon = 1^{3^{s+t+r}} 1^{3^{t(i-1)}} = 1^{3^{n}}1^{3^{t(i-1)}}$
+
+Chosing $i=1 \in \mathbb{N}$, we get $uxy^izw = 1^{3^{n}}1^{3^{t(1-1)}} = 1^{3^{n}}1^{3^{0}} = 1^{3^{n}}1^{1} = 1^{3^{n}}1 \notin A$\\
+We know this since $\nexists k \in \mathbb{N}: \forall n \in \mathbb{N}: 3^{n} + 1 = 3^{k}$\todo{is this correct, and should we even mention this?}\\
+We have provoked a contradiction. Therefore, A does not fulfill the pumping property and is therefore not regular.$\qed$
 
 \subsection{(b)}
 
-let $n >= 0$ be given ($n \in N $) .\\
-We choose u = $\epsilon$, v= $1^n$, w= $0^{n+1}$ s.t. $uvw \in B$ and $|v| = n$.\\
-let x,y,z be given s.t. xyz=v and $|y| > 0$ and $x=1^s,y=1^t,z=1^r $ s.t. $ s+t+r = n $ and $ t>=1$\\
-\\
-Now we have $uxy^izw$ = $\epsilon 1^s 1^{t*i} 1^r 0^{n+1}$ = $\epsilon 1^s 1^t 1^r 1^{t * (i-1)} 0^{n+1}$ = $\epsilon 1^n 1^{t(i-1)}0^{n+1}$\\
+$$
+B = \left\{ x \in \left\{0,1\right\}^{\ast} \mid \text{there are more }0\text{ appearing in }x\text{ than }1\right\}
+$$
 
- now we choose $i \in N$ with $i > 1$, since we also have $t >= 1, $ then the term $t(i-1) >= 1$ for $t >= 1$ and $i > 1$ and thus the term $1^{t * (i-1)}$ is at least $1^1$. this means for i=2, we have  $uxy^2zw$ = $\epsilon 1^s 1^t 1^r 1^{t * (2-1)} 0^{n+1}$ = $\epsilon 1^n 1^{t}0^{n+1}$ = $\epsilon 1^{n + t}0^{n+1}$ with $t>=1$ $ \notin B$ and thus B doesn't fulfill the pumping property and is therefore not regular.   
+Let $n \geq 0$ be given ($n \in N $).\\
+We choose $u = \epsilon$, $v= 1^n$, $w= 0^{n+1}$ s.t. $uvw \in B$ and $|v| = n$.\\
+Let $x,y,z$ be given s.t. $xyz=v$ and $|y| > 0$ and $x=1^s,y=1^t,z=1^r $ s.t. $ s+t+r = n $ and $ t \geq 1$.
+
+Now we have $uxy^izw = \epsilon 1^s 1^{t*i} 1^r 0^{n+1} = \epsilon 1^s 1^t 1^r 1^{t * (i-1)} 0^{n+1} = \epsilon 1^n 1^{t(i-1)}0^{n+1}$
+
+Now we chose $i \in N$ with $i > 1$, since we also have $t \geq 1, $ then the term $t(i-1) \geq 1$ for $t \geq 1$ and $i > 1$ and thus the term $1^{t * (i-1)}$ is at least $1^1$. this means for i=2, we have  $uxy^2zw$ = $\epsilon 1^s 1^t 1^r 1^{t * (2-1)} 0^{n+1}$ = $\epsilon 1^n 1^{t}0^{n+1}$ = $\epsilon 1^{n + t}0^{n+1} \notin B$ with $t\geq1$ and thus B does not fulfill the pumping property and is therefore not regular.$\qed$
 
 \end{document}
