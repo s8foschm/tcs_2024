@@ -54,14 +54,14 @@ Only start state is accepting because  \( f_{M_1} \) is undefined if the length 
                edge [loop above] node {a,b,$d:\epsilon$} (A)
 
          (B) edge node {d:d} (C)
-              edge [loop above] node {a:1,b:b,c:c} (B)
+              edge [loop above] node {a:a,b:b,c:c} (B)
 
          (C) edge [loop below] node {a,b,c,$d:\epsilon$} (C);
 
   
 \end{tikzpicture}
 
-Only the last state being accepting should be enough to not leave stuff like "abc" undefined.
+Only the last state being accepting is enough to not leave expressions like $abc$ undefined.
 
 
 \end{document}
