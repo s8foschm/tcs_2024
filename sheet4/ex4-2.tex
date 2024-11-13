@@ -2,11 +2,11 @@
 \input{macros}
 \sheet{4}{November 15th 2024}
 \begin{document}
+\setcounter{section}{1}
 
 \section{Non-regular languages}
 
-\textsc{}
-a)
+\subsection{(a)}
 \[
 A = \{1^{3^n} \mid n \in \mathbb{N}\}
 \]
@@ -16,41 +16,40 @@ To show that \( A \) is non-regular, we show that \( \mathbb{N}_A \) has infinit
 Pick 2 distinct equivalence classes \(1^i\) and \(1^j\) , \( i \neq j \) , \( i, j \in \mathbb{N} \), \( k \in \mathbb{N} \)
 
 \[
-1^i \cdot 1^k \in A  \quad  , i + k = 3^n
+1^i 1^k \in A  \quad  , \exists n \in \mathbb{N}:i + k = 3^n
 \]
 
 \[
-1^i \cdot 1^k \notin A  \quad  , i + k  \neq  3^n
+1^j 1^k \notin A  \quad  , \nexists n \in \mathbb{N}:j + k = 3^n
 \]
 
-Chose i and j arbitarily.
+Chose $i$ and $j$ arbitarily.
 
-We can choose a \( k \in \mathbb{N} \) such that \( \exists  n \in \mathbb{N}: \, i + k = 3^n \) \\and
-  \( \nexists  n \in \mathbb{N}: \, j + k = 3^n \) . 
+We can choose a $k \in \mathbb{N} \) such that \( \exists  n \in \mathbb{N}: \, i + k = 3^n$ and $\nexists  n \in \mathbb{N}: \, j + k = 3^n$. 
 
-Therefore we have shown that there infinitely many equivalence classes implies that A is not regular.
+Therefore we have shown that there infinitely many equivalence classes, which implies that A is not regular by the Myhill-Nerode Theorem.
 
 \vspace{20pt}
-b)
+
+\subsection{(b)}
  \[
 B = \left\{ x \in \{ 0, 1 \}^* \mid \#_0(x) > \#_1(x) \right\} 
 \]
 
 Show that B is non-regular using the Myhill-Nerode Theorem:
 
-Pick 2 distinct equivalence classes. 
+Pick 2 distinct equivalence classes $0^i 1^{i-1}$ and $0^i 1^{i-10}$.
 
 \[
-0^i\cdot 1^{i-1}\cdot 1^k \notin A , \quad 1 \leq k \leq 10
+0^i 1^{i-1} 1^k \notin A , \quad 1 \leq k \leq 10
 \]
 
 \[
-0^j\cdot1^{j-10}\cdot1^k \in A, \quad 1 \leq k \leq 10
+0^j 1^{j-10}\ 1^k \in A, \quad 1 \leq k \leq 10
 \]
 
-Chose i, j arbitarily with \( i \neq j \).
-
-We have infinitely many equivalence classes. Therefore B is not regular.
+Chose i, j arbitarily with \( i \neq j \). For every $i$ and $j$, we can chose a $k \in \mathbb{N}$ with $1 \leq k \leq 10$, such that the equations above hold.\\
+We have shown that there are infinitely many equivalence classes. Therefore B is not regular by the Myhill-Nerode Theorem.
 
 
 
