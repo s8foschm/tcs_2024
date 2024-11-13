@@ -9,11 +9,11 @@ The language \( L = \{ x \in \{0, 1\}^\star \mid x \text{ ends in one of the sub
 % Insert the DFA diagram using tikz if necessary.
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
-    \node[state, initial] (s)   {$\epsilon$};
-    \node[state] (0) [above right=of s] {one 0};
-    \node[state] (1) [below right=of s] {one 1};
-    \node[state, accepting] (11) [right=of 1] {$11$};
-    \node[state, accepting] (00) [right=of 0] {$00$};
+    \node[state, initial]   (s)                     {$\epsilon$};
+    \node[state]            (0)  [above right=of s] {one 0};
+    \node[state]            (1)  [below right=of s] {one 1};
+    \node[state, accepting] (11) [right=of 1]       {$11$};
+    \node[state, accepting] (00) [right=of 0]       {$00$};
 
     \path[->]
     (s)  edge                 node                  {1} (1)
