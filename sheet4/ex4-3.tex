@@ -1,6 +1,7 @@
 \input{header}
 \input{macros}
 \sheet{4}{November 15th 2024}
+
 \begin{document}
 
 \section{Pumping Lemma vs. Myhill-Nerode}
@@ -8,6 +9,23 @@
 $$L = \left\{ x \in \left\{0,1\right\}^{\ast} \mid 11\text{ is a subword of }x\text{ or } \exists n \in \mathbb{N}:\#_{1}(x)=n^{2}\right\}$$
 
 \subsection{(a)}
+Let \( n = 4 \). \\
+For all \( uvw \in L \): \( |v| \geq n \).
+
+\subsection*{Case 1: \( uvw \in L \) because it contains \( 11 \)}
+
+
+    (i) If \( v \) contains only 1s:\\ Pick \( y \) to be \( 11 \). Since we know that \( n = 4 \) and we are in the case that\( v \) contains only 1s, there are still 2 untouched consecutive 1s. If you pump down, and if you pump up, you still have 2 consecutive 1s.
+    
+    (ii) If \( v \) doesn’t contain \( 11 \):\\
+        We know that \( |v| \geq n \), which implies there must be a zero. Pick \( y \) to be a zero.
+    
+
+
+\subsection*{Case 2: Perfect square and no \( 11 \)}
+
+We have \( n = 4 \), \( |v| \geq n \), and \( uvw \) doesn’t have \( 11 \). This means \( v \) contains either only 0 or alternating \( 10 \). Pick \( y = 0 \).\\
+Pumping \( y = 0 \) wouldn’t effect the word’s membership in the language.
 
 
 \subsection{(b)}
