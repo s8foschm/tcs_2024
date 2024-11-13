@@ -8,24 +8,24 @@ The language \( L = \{ x \in \{0, 1\}^\star \mid x \text{ ends in one of the sub
 
 % Insert the DFA diagram using tikz if necessary.
 \begin{center}
-\begin{tikzpicture}[shorten >=1pt, node distance=4cm, on grid, auto]
+\begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
     \node[state, initial] (s)   {$\epsilon$};
-    \node[state] (0) [right=of s] {one 0};
-    \node[state] (1) [below=of s] {one 1};
-    \node[state, accepting] (11) [below=of 1] {$11$};
+    \node[state] (0) [above right=of s] {one 0};
+    \node[state] (1) [below right=of s] {one 1};
+    \node[state, accepting] (11) [right=of 1] {$11$};
     \node[state, accepting] (00) [right=of 0] {$00$};
 
     \path[->]
-    (s) edge node {1} (1)
-         edge node {0} (0)
-    (0) edge node {0} (00)
-         edge [bend left] node {1} (1)
-    (1) edge node {1} (11)
-         edge [bend left] node {0} (0)
-    (00) edge [loop right] node {0} (00)
-         edge [bend left] node {1} (1)
-    (11) edge [loop below] node {1} (11)
-         edge [bend right] node {0} (0);
+    (s)  edge                 node                  {1} (1)
+         edge                 node                  {0} (0)
+    (0)  edge                 node                  {0} (00)
+         edge [bend left=20]  node [left]           {1} (1)
+    (1)  edge                 node                  {1} (11)
+         edge [bend left=20]  node [right]          {0} (0)
+    (00) edge [loop right]    node                  {0} (00)
+         edge                 node [right, pos=0.3] {1} (1)
+    (11) edge [loop right]    node                  {1} (11)
+         edge                 node [right, pos=0.3] {0} (0);
 \end{tikzpicture}
 \end{center}
 
