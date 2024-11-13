@@ -17,7 +17,7 @@ Similarly, let \( A_{\cup^n} = \bigcup_{k \in \{0, \dots, n\}} \{0^k 1^k\} \). W
 
 For any \( i \neq j \), we have \( 0^k 1^{k-i} \not\sim_{A_{\cup^n}} 0^k 1^{k-j} \) because \( 0^k 1^{k-i} 1^i \in A_{\cup^n} \) but \( 0^k 1^{k-j} 1^i \notin A_{\cup^n} \).
 
-(b) In contrast to \( A_{\cup^n} \), where \( n \) is fixed, the language \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular. This is because, for any \( i \neq j \) where \( 0 \leq i \leq k \) and \( 0 \leq j \leq k \), we have \( 0^k 1^{k-i} \not\sim_{A} 0^k 1^{k-j} \) since \( 0^k 1^{k-i} 1^i \in A \) but \( 0^k 1^{k-j} 1^i \notin A \) for all \( k \in \mathbb{N} \). Since \( k \) is arbitrary, the equivalence classes \( [0^k 1^{k-i}]_{\sim_{A}} \) are pairwise distinct for arbitrary values of \( k \). Thus, the index of \( \sim_{A} \) is infinite, which implies that \( A \) is not regular.
+(b) The language \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular. This is because, for any \( i \neq j \) where \( 0 \leq i \leq k \) and \( 0 \leq j \leq k \), we have \( 0^k 1^{k-i} \not\sim_{A} 0^k 1^{k-j} \) since \( 0^k 1^{k-i} 1^i \in A \) but \( 0^k 1^{k-j} 1^i \notin A \) for all \( k \in \mathbb{N} \). Since \( k \) is arbitrary, the equivalence classes \( [0^k 1^{k-i}]_{\sim_{A}} \) are pairwise distinct for arbitrary values of \( k \). Thus, the index of \( \sim_{A} \) is infinite, which implies that \( A \) is not regular.
 
 On the other hand, \( B := \bigcup_{k \in \mathbb{N}} B_k = \bigcup_{k \in \mathbb{N}} \{0^k\} \) is regular since we can construct the following simple DFA to recognize \( B \):
 
@@ -31,7 +31,7 @@ On the other hand, \( B := \bigcup_{k \in \mathbb{N}} B_k = \bigcup_{k \in \math
 (c)
 
 \begin{enumerate}
-    \item[\textbf{(i)}] Todo.
+    \item[\textbf{(i)}] That is not True, a counter example is what we have seen in the last 2 Subproblems where $A_k := \{0^k1^k\}$ is finite and therefore regular but \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular as shown in b).
 
     \item[\textbf{(ii)}] Todo.
 \end{enumerate}
