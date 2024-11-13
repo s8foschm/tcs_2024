@@ -29,7 +29,7 @@ The language \( L = \{ x \in \{0, 1\}^\star \mid x \text{ ends in one of the sub
 \end{tikzpicture}
 \end{center}
 
-\section{Representatives for Myhill-Nerode Equivalence Classes}
+\subsection*{Representatives for Myhill-Nerode Equivalence Classes}
 
 \begin{itemize}
     \item \( [\epsilon] := \emptyset \)
@@ -39,7 +39,7 @@ The language \( L = \{ x \in \{0, 1\}^\star \mid x \text{ ends in one of the sub
     \item \( [1] := \{ x \mid x \text{ ends with } "01" \text{ and } |x| > 1, \text{ or } x = "1" \} \)
 \end{itemize}
 
-\section{Proof of Minimality}
+\subsection*{Proof of Minimality}
 We show that the states are all pairwise Myhill-Nerode inequivalent by constructing a table. For each pair of states, there exists a string \( z \in \Sigma^\star \) that, when appended to each representative, results in one string being in \( L \) and the other not. This proves the minimality of the DFA recognizing \( L \) (up to isomorphism $:)$ ).
 
 \begin{center}
