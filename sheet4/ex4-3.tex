@@ -10,19 +10,42 @@
 $$L = \left\{ x \in \left\{0,1\right\}^{\ast} \mid 11\text{ is a subword of }x\text{ or } \exists n \in \mathbb{N}:\#_{1}(x)=n^{2}\right\}$$
 
 \subsection{(a)}
-Let \( n = 4 \). \\
+Let \( n = 4 \).
+
 For all \( uvw \in L \): \( |v| \geq n \).
 
-\textbf{Case 1: $uvw \in L$ because it contains $11$}\\
-(i) If \( v \) contains only 1s:\\ Pick \( y \) to be \( 11 \). Since we know that \( n = 4 \) and we are in the case that\( v \) contains only 1s, there are still 2 untouched consecutive 1s. If you pump down, and if you pump up, you still have 2 consecutive 1s.\\
-(ii) If \( v \) doesn’t contain \( 11 \):\\
-We know that \( |v| \geq n \), which implies there must be a zero. Pick \( y \) to be a zero. The substring $11$ remains.\\
+\textbf{Case 1: \( uvw \in L \) because it contains \( 11 \)}
 
-\textbf{Case 2: $uvw \in L$ because $\exists n \in \NN: \#_{1}(uvw)=n^2$ and there is no $11$}\\
-We have \( n = 4 \), \( |v| \geq n \), and \( uvw \) doesn’t have \( 11 \). This means \( v \) contains either only $0$s or alternating $1$s and $0$s. Pick \( y = 0 \).\\
-Pumping \( y = 0 \) wouldn’t effect the word’s membership in the language. 
+(i) If \( v \) contains only 1s:
 
-Therefore we have shown that L satisfies the pumping lemma.
+Choose \( y = 11 \). Since \( n = 4 \) and we are in the case where \( v \) contains only 1s, there are still two untouched consecutive 1s. This way, if you pump down or pump up, you still have two consecutive 1s. Formally, if \( v = xyz = 1111(1^*) \) such that \( |v| \geq n \), then by choosing \( y := 11 \), we have:
+\[
+\forall i \in \mathbb{N}, \quad uxy^i zw = ux(11)^i zw \in L
+\]
+
+(ii) If \( v \) contains \( 11 \) and at least one "0" (\( \#_0(v) > 0 \)):
+
+Choose \( y = 0 \), then we have:
+\[
+\forall i \in \mathbb{N}, \quad uxy^i zw = ux(0)^i zw \in L
+\]
+
+(iii) If \( v \) doesn’t contain \( 11 \):
+
+Since \( |v| \geq n \), this implies there must be a zero. Choose \( y = 0 \). Again, since \( |v| \geq n \), we have:
+\[
+\forall i \in \mathbb{N}, \quad uxy^i zw = ux(0)^i zw \in L
+\]
+
+\textbf{Case 2: \( uvw \in L \) because \( \exists n \in \mathbb{N} \) such that \( \#_{1}(uvw) = n^2 \) and there is no \( 11 \)}
+
+We have \( n = 4 \), \( |v| \geq n \), and \( uvw \) doesn’t contain \( 11 \). This implies \( v \) contains either only 0s or alternating 1s and 0s. Choose \( y = 0 \). Since \( |v| \geq n \), we have:
+\[
+\forall i \in \mathbb{N}, \quad uxy^i zw = ux(0)^i zw \in L
+\]
+
+Therefore, we have shown that \( L \) satisfies the pumping lemma in all cases.
+
 \subsection{(b)}
 We now want to show that L is regular by directly applying the Myhill-Nerode Theorem to L.\\
 We do that by showing that $\sim_{L}$ has infinitely many equivalence classes.\\
