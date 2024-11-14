@@ -38,7 +38,7 @@ On the other hand, \( B := \bigcup_{k \in \mathbb{N}} B_k = \bigcup_{k \in \math
     \item[\textbf{(ii)}] We want to prove or disprove that $\forall i \in \NN: L_{i} \in \text{REG} \Rightarrow \bigcup_{i\in \NN}  L_{i} \in \text{REG}$\\
     Let L be a non-regular language: $L \notin \text{REG}$\\
     We know that $\left\{w\right\}$ is a regular language (since it is finite) $\forall w \in \Sigma^{\ast}\setminus \left\{w\right\}$.\\
-    We know that regular languages are closed over complement (since they are closed over the set difference), so this means that $\Sigma^{\ast}\setminus \left\{w\right\}$ is also regular.\\
+    We know that regular languages are closed over complement (since they are closed over the set difference and the complement of any regular language $L$ is defined as $\Sigma^{\ast}\setminus L$, and $\Sigma^{\ast}$ is regular), so this means that $\Sigma^{\ast}\setminus \left\{w\right\}$ is also regular.\\
     We construct a set as follows:\\
     $\bigcap_{w\notin L}(\Sigma^{\ast}\setminus\left\{w\right\}) = L$
     So L is a non-regular languages which could be constructed as an intersection of ininitely many regular languages.\\
