@@ -9,7 +9,8 @@
 
 \section{Infinite Unions}
 
-(a) Let \( B_{\cup^n} = \bigcup_{k \in \{0, \dots, n\}} \{0^k\} \). We can use the Myhill-Nerode Theorem to show that all equivalence classes \( [0^{k-i}]_{B_{\cup^n}} \) for \( k \in \{0, \dots, n\} \), \( 0 \leq i \leq k \), and any fixed \( n \in \mathbb{N} \) with \( 0 \leq k \leq n \) are pairwise distinct. From this, we conclude that the minimal DFA that recognizes \( B_{\cup^n} \) must have at least \( n + 1 \) states.
+\subsection{(a)}
+Let \( B_{\cup^n} = \bigcup_{k \in \{0, \dots, n\}} \{0^k\} \). We can use the Myhill-Nerode Theorem to show that all equivalence classes \( [0^{k-i}]_{B_{\cup^n}} \) for \( k \in \{0, \dots, n\} \), \( 0 \leq i \leq k \), and any fixed \( n \in \mathbb{N} \) with \( 0 \leq k \leq n \) are pairwise distinct. From this, we conclude that the minimal DFA that recognizes \( B_{\cup^n} \) must have at least \( n + 1 \) states.
 
 For any \( i \neq j \) where \( 0 \leq i \leq k \) and \( 0 \leq j \leq k \), we have \( 0^{k-i} \not\sim_{B_{\cup^n}} 0^{k-j} \) because \( 0^{k-i} 0^i \in B_{\cup^n} \) but \( 0^{k-j} 0^i \notin B_{\cup^n} \).
 
@@ -17,7 +18,8 @@ Similarly, let \( A_{\cup^n} = \bigcup_{k \in \{0, \dots, n\}} \{0^k 1^k\} \). W
 
 For any \( i \neq j \), we have \( 0^k 1^{k-i} \not\sim_{A_{\cup^n}} 0^k 1^{k-j} \) because \( 0^k 1^{k-i} 1^i \in A_{\cup^n} \) but \( 0^k 1^{k-j} 1^i \notin A_{\cup^n} \).
 
-(b) The language \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular. This is because, for any \( i \neq j \) where \( 0 \leq i \leq k \) and \( 0 \leq j \leq k \), we have \( 0^k 1^{k-i} \not\sim_{A} 0^k 1^{k-j} \) since \( 0^k 1^{k-i} 1^i \in A \) but \( 0^k 1^{k-j} 1^i \notin A \) for all \( k \in \mathbb{N} \). Since \( k \) is arbitrary, the equivalence classes \( [0^k 1^{k-i}]_{\sim_{A}} \) are pairwise distinct for arbitrary values of \( k \). Thus, the index of \( \sim_{A} \) is infinite, which implies that \( A \) is not regular.
+\subsection{(b)}
+The language \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular. This is because, for any \( i \neq j \) where \( 0 \leq i \leq k \) and \( 0 \leq j \leq k \), we have \( 0^k 1^{k-i} \not\sim_{A} 0^k 1^{k-j} \) since \( 0^k 1^{k-i} 1^i \in A \) but \( 0^k 1^{k-j} 1^i \notin A \) for all \( k \in \mathbb{N} \). Since \( k \) is arbitrary, the equivalence classes \( [0^k 1^{k-i}]_{\sim_{A}} \) are pairwise distinct for arbitrary values of \( k \). Thus, the index of \( \sim_{A} \) is infinite, which implies that \( A \) is not regular.
 
 On the other hand, \( B := \bigcup_{k \in \mathbb{N}} B_k = \bigcup_{k \in \mathbb{N}} \{0^k\} \) is regular since we can construct the following simple DFA to recognize \( B \):
 
@@ -28,12 +30,19 @@ On the other hand, \( B := \bigcup_{k \in \mathbb{N}} B_k = \bigcup_{k \in \math
 \end{tikzpicture}
 \end{center}
 
-(c)
+\subsection{(c)}
 
 \begin{enumerate}
-    \item[\textbf{(i)}] That is not True, a counter example is what we have seen in the last 2 Subproblems where $A_k := \{0^k1^k\}$ is finite and therefore regular but \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular as shown in b).
+    \item[\textbf{(i)}] That is not true, a counter example is what we have seen in the last 2 Subproblems where $A_k := \{0^k1^k\}$ is finite and therefore regular but \( A := \bigcup_{k \in \mathbb{N}} A_k \) is not regular as shown in exericse (b).
 
-    \item[\textbf{(ii)}] Todo.
+    \item[\textbf{(ii)}] We want to prove or disprove that $\forall i \in \NN: L_{i} \in \text{REG} \Rightarrow \bigcup_{i\in \NN}  L_{i} \in \text{REG}$\\
+    Let L be a non-regular language: $L \notin \text{REG}$\\
+    We know that $\left\{w\right\}$ is a regular language (since it is finite) $\forall w \in \Sigma^{\ast}\setminus \left\{w\right\}$.\\
+    We know that regular languages are closed over complement (since they are closed over the set difference), so this means that $\Sigma^{\ast}\setminus \left\{w\right\}$ is also regular.\\
+    We construct a set as follows:\\
+    $\bigcap_{w\notin L}(\Sigma^{\ast}\setminus\left\{w\right\}) = L$
+    So L is a non-regular languages which could be constructed as an intersection of ininitely many regular languages.\\
+    Therefore, we have shown that the initial statement does not hold.$\square$
 \end{enumerate}
 
 
