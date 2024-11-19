@@ -26,9 +26,22 @@ Statement: \( x_i := x_j^{x_k} \)
 
 \subsection{(b)}
 
-\textsc{To-Do.}
+\begin{algorithmic}[1]
+\State \( x_{cmp} := 1; \) \texttt{/* Auxiliary variable */} 
+\For{\( x_i \)}
+    \State \( x_{cmp} := 0; \) \texttt{/* Set \( x \) to 0 if \( x_i \neq 0 \) */}
+\EndFor \textbf{od;}
+\For{\( x_{cmp} \)}
+     \( P_1; \)
+\EndFor \textbf{od;}
+\For{\( x_i \)}
+    \State\( P_2; \)
+\EndFor \textbf{od;}
+\end{algorithmic}
+
 
 \subsection{(c)}
+We can simulate For FOR-programs with WHILE-programs:
 
 \begin{algorithmic}[1]
 \State \( x_i := 0; \)
@@ -38,6 +51,7 @@ Statement: \( x_i := x_j^{x_k} \)
 \EndWhile \textbf{od;}
 \end{algorithmic}
 \subsection{(d)}
+Here as well, we can simulate FOR-programs with WHILE-programs:
 
 \begin{algorithmic}[1]
 \While{\( x_j \geq x_k \)}
@@ -48,6 +62,6 @@ Statement: \( x_i := x_j^{x_k} \)
 
 \subsection{(e)}
 
-\textsc{To-Do.}
+Todo.
 
 \end{document}
