@@ -1,16 +1,70 @@
+\documentclass{article}
+
 \input{header}
 \input{macros}
 \sheet{5}{November 22nd, 2024}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{float} % For [H] option
+
 \begin{document}
 
-\section{\textsc{FOR}-Programs}
+\section*{FOR-Programs}
 
-\subsection{(a)}
+\subsection*{(a)}
+\subsubsection*{Statement: \( x_i := x_j + x_k \)}
+\label{alg:addition}
 
-\textsc{To-Do.}
+\begin{algorithmic}[1]
+\State \( x_i := 0; \)
+\For{\( x_j \)}
+    \State \( x_i \texttt{++}; \)
+\EndFor \textbf{od;}
+\For{\( x_k \)}
+    \State \( x_i \texttt{++}; \)
+\EndFor \textbf{od;}
+\end{algorithmic}
 
-\subsection{(b)}
+\subsubsection*{Statement: \( x_i := x_j - x_k \)}
+\label{alg:subtraction}
 
-\textsc{To-Do.}
+\begin{algorithmic}[1]
+\State \( x_i := 0; \)
+\For{\( x_j \)}
+    \State \( x_i \texttt{++}; \)
+\EndFor \textbf{od;}
+\For{\( x_k \)}
+    \State \( x_i \texttt{--}; \)
+\EndFor \textbf{od;}
+\end{algorithmic}
+
+\subsubsection*{Statement: \( x_i := c \)}
+\label{alg:equality}
+
+\begin{algorithmic}[1]
+\State \( x_i := 0; \)
+\State \( x_i \texttt{++}; \)
+\State \( x_i \texttt{++}; \)
+\State \dots
+\State \( x_i \texttt{++}; \) \texttt{/* the \( c \)-th \( x_i \texttt{++} \) statement */}
+\end{algorithmic}
+
+
+\subsection*{(b)}
+\subsubsection*{Statement: \( x_i \texttt{--} \)}
+
+\label{alg:decrement}
+
+\begin{algorithmic}[1]
+\State \( x_k := 0; \)
+\For{\( x_i \)}
+    \State \( x_i := 0; \)
+    \For{\( x_k \)}
+        \State \( x_i \texttt{++}; \)
+    \EndFor \textbf{od;}
+    \State \( x_k \texttt{++}; \)
+\EndFor \textbf{od;}
+\end{algorithmic}
 
 \end{document}
