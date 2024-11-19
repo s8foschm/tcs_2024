@@ -1,6 +1,8 @@
 \input{header}
 \input{macros}
 \sheet{5}{November 22nd, 2024}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 \begin{document}
 \setcounter{section}{1}
 
@@ -8,7 +10,19 @@
 
 \subsection{(a)}
 
-\textsc{To-Do.}
+Statement: \( x_i := x_j^{x_k} \)
+
+\begin{algorithmic}[1]
+\State \( x_i := 1; \)
+\For{\( x_k \)}
+    \State \( x := 0; \)
+    \For{\( x_j \)}
+        \State \( x := x + x_i; \)
+    \EndFor \textbf{od;}
+    \State \( x_i := x; \)
+\EndFor \textbf{od;}
+\end{algorithmic}
+
 
 \subsection{(b)}
 
@@ -16,11 +30,21 @@
 
 \subsection{(c)}
 
-\textsc{To-Do.}
-
+\begin{algorithmic}[1]
+\State \( x_i := 0; \)
+\While{\( x_j \geq x_k \)}
+    \State \( x_j := x_j - x_k; \)
+    \State \( x_i++; \)
+\EndWhile \textbf{od;}
+\end{algorithmic}
 \subsection{(d)}
 
-\textsc{To-Do.}
+\begin{algorithmic}[1]
+\While{\( x_j \geq x_k \)}
+    \State \( x_j := x_j - x_k; \)
+\EndWhile \textbf{od;}
+\State \( x_i := x_j; \)
+\end{algorithmic}
 
 \subsection{(e)}
 

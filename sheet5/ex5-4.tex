@@ -1,11 +1,35 @@
 \input{header}
 \input{macros}
-\sheet{5}{November 22nd, 2024}
+\sheet{5}{November 22nd, 2024}\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{float} % For [H] option
 \begin{document}
 \setcounter{section}{3}
 
 \section{Inverses of the pairing function}
+We compute the largest \( z \) such that \( \frac{z(z+1)}{2} \leq p \), where \( z = x_1 + x_2 \), and then extract \( x_1 \) and \( x_2 \) using \( x_2 = p - \frac{z(z+1)}{2} \) and \( x_1 = z - x_2 \), as shown in the proof of Lemma 8.3 in the script.
 
-\textsc{To-Do.}
+
+In this implementation p is the input of our program, s.t.
+\[
+p = \langle x_1, x_2 \rangle = \frac{(x_1 + x_2)(x_1 + x_2 + 1)}{2} + x_2
+\] and we store our outputs in $x_1$ and $x_2$.
+
+
+
+\begin{algorithmic}[1]
+\State \( z := 0; \) 
+\For{\( p \)}
+    \State \( x_{cmp} := \frac{(z + 1)(z + 2)}{2}; \) 
+    \If{\( x_{cmp} \leq p \)}
+        \State \( z++; \) 
+    \EndIf \textbf{fi;}
+\EndFor \textbf{od;}
+
+\State \( x_2 := p - \frac{z(z + 1)}{2}; \)
+\State \( x_1 := z - x_2; \) 
+\end{algorithmic}
+
+
 
 \end{document}
