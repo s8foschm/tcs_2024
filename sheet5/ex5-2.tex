@@ -41,40 +41,107 @@ Statement: \( x_i := x_j^{x_k} \)
 
 
 \subsection{(c)}
-We can simulate For FOR-programs with WHILE-programs:
 
 \begin{algorithmic}[1]
 \State \( x_i := 0; \)
-\While{\( x_j \geq x_k \)}
-    \State \( x_j := x_j - x_k; \)
-    \State \( x_i++; \)
-\EndWhile \textbf{od;}
+\For{\( x_j \)}
+    \If{\( x_j \geq x_k \)}
+        \State \( x_j := x_j - x_k; \)
+        \State \( x_i++; \)
+    \Else
+        \State \(x_i := x_i;\)
+    \EndIf
+\EndFor \textbf{od;}
 \end{algorithmic}
+
 \subsection{(d)}
-Here as well, we can simulate FOR-programs with WHILE-programs:
 
 \begin{algorithmic}[1]
-\While{\( x_j \geq x_k \)}
-    \State \( x_j := x_j - x_k; \)
-\EndWhile \textbf{od;}
-\State \( x_i := x_j; \)
+
+\For{\( x_j \)}
+    \If{\( x_j \geq x_k \)}
+        \State \( x_j := x_j - x_k; \)
+    \Else
+        \State \textbf{break;}
+    \EndIf
+\EndFor \textbf{od;}
+\State \( x_i := x_j; \) 
 \end{algorithmic}
 
-\subsection{(e)}
 
+\subsection*{(e) Generalized Conditional Statements}
+
+We can reuse the program from (b) to implement this statement by first simulating \( x_i \circ x_j \) and setting an auxiliary variable \( x_k \) to \( 0 \) if \( x_i \circ x_j \) is true, and \( 1 \) otherwise.
+\subsubsection*{Simulating \( = \):}
 \begin{algorithmic}[1]
-\State \( x_k := x_i \circ x_j; \) \texttt{/* assuming \( x_i \circ x_j \) : 0 if true and 1 if false */}
-\If{\( x_k = 0 \)} 
-    \State \( x := 0; \)
-\Else 
-    \State \( x := 1; \)
-\EndIf \textbf{fi;}
-\For{\( x \)} 
+\State \( x_k := x_i - x_j; \)
+\If{\( x_k = 0 \)}
     \State  \( P_1; \)
-\EndFor \textbf{od;}
-\For{\( 1 - x \)}
+\Else
     \State  \( P_2; \)
+\EndIf \textbf{fi;}
+\end{algorithmic}
+
+\subsubsection*{Simulating \(  \neq \):}
+\begin{algorithmic}[1]
+\State \( x_k := x_i - x_j; \)
+\State \( x_t := 1; \)
+\For{\( x_k \)}
+    \State \( x_t := 0; \)
 \EndFor \textbf{od;}
+\If{\( x_t = 0 \)}
+    \State  \( P_1; \)
+\Else
+    \State  \( P_2; \)
+\EndIf \textbf{fi;}
+\end{algorithmic}
+
+\subsubsection*{Simulating \(  \geq \):}
+\begin{algorithmic}[1]
+\State \( x_k := x_j - x_i; \)
+\If{\( x_k = 0 \)}
+    \State  \( P_1; \)
+\Else
+    \State  \( P_2; \)
+\EndIf \textbf{fi;}
+\end{algorithmic}
+
+\subsubsection*{Simulating \(  > \):}
+\begin{algorithmic}[1]
+\State \( x_k := x_i - x_j; \)
+\State \( x_t := 1; \)
+\For{\( x_k \)}
+    \State \( x_t := 0; \)
+\EndFor \textbf{od;}
+\If{\( x_t = 0 \)}
+    \State  \( P_1; \)
+\Else
+    \State  \( P_2; \)
+\EndIf \textbf{fi;}
+\end{algorithmic}
+
+\subsubsection*{Simulating \(  < \):}
+\begin{algorithmic}[1]
+\State \( x_k := x_j - x_i; \)
+\State \( x_t := 1; \)
+\For{\( x_k \)}
+    \State \( x_t := 0; \)
+\EndFor \textbf{od;}
+\If{\( x_t = 0 \)}
+    \State  \( P_1; \)
+\Else
+    \State  \( P_2; \)
+\EndIf \textbf{fi;}
+\end{algorithmic}
+
+\subsubsection*{Simulating \( \leq \):}
+\begin{algorithmic}[1]
+\State \( x_k := x_i - x_j; \)
+\If{\( x_k = 0 \)}
+    \State  \( P_1; \)
+\Else
+    \State  \( P_2; \)
+\EndIf \textbf{fi;}
 \end{algorithmic}
 
 
