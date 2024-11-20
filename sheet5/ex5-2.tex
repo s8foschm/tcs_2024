@@ -27,9 +27,9 @@ Statement: \( x_i := x_j^{x_k} \)
 \subsection{(b)}
 
 \begin{algorithmic}[1]
-\State \( x_{cmp} := 1; \) \texttt{/* Auxiliary variable */} 
+\State \( x_{cmp} := 1; \)  
 \For{\( x_i \)}
-    \State \( x_{cmp} := 0; \) \texttt{/* Set \( x \) to 0 if \( x_i \neq 0 \) */}
+    \State \( x_{cmp} := 0; \) 
 \EndFor \textbf{od;}
 \For{\( x_{cmp} \)}
      \( P_1; \)
@@ -62,6 +62,20 @@ Here as well, we can simulate FOR-programs with WHILE-programs:
 
 \subsection{(e)}
 
-Todo.
+\begin{algorithmic}[1]
+\State \( x_k := x_i \circ x_j; \) \texttt{/* assuming \( x_i \circ x_j \) : 0 if true and 1 if false */}
+\If{\( x_k = 0 \)} 
+    \State \( x := 0; \)
+\Else 
+    \State \( x := 1; \)
+\EndIf \textbf{fi;}
+\For{\( x \)} 
+    \State  \( P_1; \)
+\EndFor \textbf{od;}
+\For{\( 1 - x \)}
+    \State  \( P_2; \)
+\EndFor \textbf{od;}
+\end{algorithmic}
+
 
 \end{document}
