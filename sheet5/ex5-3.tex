@@ -6,6 +6,48 @@
 
 \section{Even more syntactical sugar}
 
-\textsc{To-Do.}
+To achieve this, we need the following:
+\begin{enumerate}
+    \item We need to keep track that \texttt{return x} is called at most once.
+    \item The returned value \texttt{x} must be saved in \texttt{$x_0$} and never overwritten afterward.
+\end{enumerate}
+
+To achieve this, we introduce two variables that may only be changed by a \texttt{return x} statement: \texttt${x_{returned}$ := 0;} and \texttt{$x_{return\_val}$}, and this must be done before entering the loop.
+
+Now, when simulating a \texttt{return x} in a \textbf{WHILE} program \texttt{P = while $x_i \neq 0$ do $P_1$ od}, the \texttt{return x} statement itself is simulated as follows:
+
+\begin{verbatim}
+if x_{returned} = 0 then
+    x_0 := 0;
+    x_{return\_val} := x + x_0;
+    x_{returned} := 1;
+    x_i := 0;
+else
+    x_{dummy\_variable} := 0;
+fi;
+\end{verbatim}
+
+In this statement, \texttt{$x_i$} is set to 0 to ensure the \texttt{WHILE} loop terminates after this iteration. We want our return value to be stored in \texttt{$x_0$}, so we must ensure that the final modification to \texttt{$x_0$} is the value of \texttt{x}. To implement this in both \texttt{FOR} and \texttt{WHILE} programs, the last part of the loop must be:
+
+\begin{verbatim}
+if x_{returned} != 0 then
+    x_0 := 0;
+    x_0 := x_{return\_val} + x_0;
+else
+    x_{dummy\_variable}++;
+fi;
+\end{verbatim}
+
+In contrast to a \texttt{WHILE} program, a \textbf{FOR} program \texttt{P = for $x_i$ do $P_1$ od} will not terminate before completing $x_i$ iterations. Therefore, the statement \texttt{$x_i$ := 0} is not needed in a \texttt{FOR} program. The simulation of the \texttt{return x} statement itself would then be:
+
+\begin{verbatim}
+if x_{returned} = 0 then
+    x_0 := 0;
+    x_{return\_val} := x + x_0;
+    x_{returned} := 1;
+else
+    x_{dummy\_variable} := 0;
+fi;
+\end{verbatim}
 
 \end{document}
