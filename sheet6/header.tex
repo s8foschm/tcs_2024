@@ -1,0 +1,50 @@
+%%%% Originalvorlage von Kai Vogelgesang
+\documentclass{article}
+\usepackage{iftex}
+\ifluatex
+	\usepackage{fontspec}
+\else
+	\usepackage[utf8]{inputenc} %Eingabekodierung nach UTF8-Unicode, Erlaubt direkte Eingabe von Umlauten etc.
+\fi
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[ngerman]{babel}
+\usepackage{csquotes}
+
+\usepackage[headheight=24pt,heightrounded]{geometry}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+
+\usepackage{tikz}
+\usetikzlibrary{automata}
+
+\usepackage{xcolor}
+\definecolor{urlcolor}{RGB}{0,136,204}
+\definecolor{linkcolor}{RGB}{204,0,34}
+\usepackage[colorlinks,urlcolor=urlcolor,linkcolor=linkcolor]{hyperref}
+
+% TODOs
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+% coloneqq
+\usepackage{mathtools}
+
+% Blank lines instead of indented first line
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+
+\newcommand{\sheet}[2]{
+\pagestyle{fancy}
+\fancyhead[L]{Introduction to Theoretical Computer Science WS2024/25\\Exercise Sheet #1\\#2}
+\fancyhead[R]{Akansha Jain (7014299)\\Moustafa Said (7024414)\\Francesco Georg Schmitt (2574611)}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries} {E#1.\thesection} {0.5em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries} {}{1em}{}
+
+}
