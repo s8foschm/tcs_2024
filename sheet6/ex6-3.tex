@@ -3,8 +3,19 @@
 \sheet{6}{November 29th, 2024}
 \begin{document}
 
-\section{Powerset}
+Assume $|P(A)| = |A|$, then there is a bijection $f: A \to P(A)$.
 
-\textsc{To-Do.}
+Let $S \subseteq A$ be defined as:
+\[
+S = \{x \in A \mid x \notin f(x)\}.
+\]
+
+Now, because $f$ is bijective, $\exists a \in A$ such that $f(a) = S$. This implies that:
+\[
+a \in S \iff a \notin f(a) \iff a \notin S,
+\]
+which is a contradiction. 
+
+Therefore, there exists no bijection, and $P(A)$ and $A$ do not have the same cardinality.
 
 \end{document}

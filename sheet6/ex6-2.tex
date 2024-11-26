@@ -5,6 +5,33 @@
 
 \section{\lstinline|FOR|-programs terminate}
 
-\textsc{To-Do.}
+
+We need to prove that FOR-programs always terminate by showing via structural induction that for every FOR-program \( P \), the function \( \Phi_P \) is total.
+
+\subsection*{Base Case: Simple Assignments}
+For a basic assignment, the program always terminates immediately after executing the statement. Hence, \( \Phi_P \) is defined, making it total.
+
+\subsection*{Inductive Hypothesis (IH)}
+For any FOR-programs \( P_1 \) and \( P_2 \), the functions \( \Phi_{P_1} \) and \( \Phi_{P_2} \) are total. 
+\subsection*{Inductive Step}
+If \( P \) is of the form \( [P_1; P_2] \):
+\begin{itemize}
+    \item By the inductive hypothesis, \( \Phi_{P_1} \) is total, so \( P_1 \) terminates.
+    \item After \( P_1 \) terminates, \( P_2 \) starts execution. Again, by the inductive hypothesis, \( P_2 \) terminates, and \( \Phi_{P_2} \) is total.
+\end{itemize}
+Therefore, the combined program \( P_1; P_2 \) terminates, and \( \Phi_P \) is total.
+
+If \( P \) is a FOR-loop:
+\[
+P = \text{for } x_i \text{ do } P_1 \text{ od}
+\]
+the number of iterations is fixed and determined before entering the loop. For the following cases:
+\begin{itemize}
+    \item If \( x_i = 0 \), the loop body \( P_1 \) does not execute, and the program terminates immediately.
+    \item If \( x_i > 0 \), \( P_1 \) executes exactly \( x_i \) times. By the inductive hypothesis, \( \Phi_{P_1} \) is total, so \( P_1 \) terminates after each iteration.
+\end{itemize}
+Since the number of iterations is finite and \( P_1 \) terminates for each iteration, the loop terminates after \( x \) iterations, then \( \Phi_P \) is total.
+
+
 
 \end{document}
