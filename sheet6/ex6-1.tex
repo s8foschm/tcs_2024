@@ -4,7 +4,62 @@
 \begin{document}
 
 \section{Transducers}
+a)
 
-\textsc{To-Do.}
+Automata recognizing \( f_N(K) \):
 
+\begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto] 
+   \node[state, initial] (SS') {$SS'$}; 
+   \node[state] (XA') [right=of SS'] {$XA'$}; 
+   \node[state] (XA'_0) [right=of XA'] {$XA'_0$}; 
+   \node[state] (AS') [right=of XA'_0] {$AS'$};
+   \node[state] (SA') [below=of SS'] {$SA'$}; 
+   \node[state] (XS') [right=of SA'] {$XS'$}; 
+   \node[state] (XS'_0) [right=of XS'] {$XS'_0$}; 
+   \node[state, accepting] (AA') [right=of XS'_0] {$AA'$};
+
+   \path[->] 
+    (SS') 
+          edge [bend right] node {$\varepsilon$} (SA')
+          edge [bend right] node {1} (XA')
+    (XA') edge node {1} (XA'_0)
+          edge [bend right] node {1} (SS')
+    (XA'_0) edge node {0} (AS')
+    (AS') edge [bend right] node {$\varepsilon, 0$} (AA')
+    (SA') 
+          edge [bend right] node {1} (XS')
+          edge [bend right] node {$\varepsilon$} (SS')
+    (XS') edge node {1} (XS'_0)
+          edge [bend right] node {1} (SA')
+    (XS'_0) edge node {0} (AA')
+    (AA') edge [pos=0.25, bend right] node {$\varepsilon, 0$} (AS');
+\end{tikzpicture}
+
+Automata recognizing \( f_N^{-1}(K) \):
+
+\begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto] 
+   \node[state, initial] (SS') {$SS'$}; 
+   \node[state] (XA') [right=of SS'] {$XA'$}; 
+   \node[state, accepting] (AA') [right=of XA'] {$AA'$};
+   \node[state] (SA') [below=of SS'] {$SA'$}; 
+   \node[state] (XS') [right=of SA'] {$XS'$}; 
+   \node[state] (AS') [right=of XS'] {$AS'$};
+
+   \path[->] 
+    (SS') edge [loop above] node {1} (SS')
+          edge [bend right] node {0} (XA')
+    (XA') edge node {0} (AA')
+          edge [bend right] node {1} (SS')
+    (AA') edge [loop above] node {0} (AA')
+          edge [bend right] node {1} (AS')
+    (SA') edge [loop below] node {1} (SA')
+          edge [bend right] node {0} (XS')
+    (XS') edge node {0} (AS')
+          edge [bend right] node {1} (SA')
+    (AS') edge [loop below] node {0} (AS')
+          edge [bend right] node {1} (AA');
+\end{tikzpicture}
+
+
+b) 
 \end{document}
