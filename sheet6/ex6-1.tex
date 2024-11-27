@@ -117,6 +117,24 @@ f^*(q_0, w) = f^*(q_0, \sigma x)
 
 Thus, by induction, \( f^*(q_0, x) = h(x) \) for all \( x \in \Sigma^* \). \(\Box\)
 
+\begin{itemize}
+    \item[(e)] Yes, for example:
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[state, initial] (s)   {$S$}; 
+   \node[state] (s') [right=of s] {$S'$}; 
+    \path[->] 
+    (s) 
+        edge [bend left] node {1:1} (s')
+    (s') 
+        edge [bend left] node {1:0} (s);
+\end{tikzpicture}
+\end{center}
+
+It holds that $f_M(11) = 10 \neq 11 = f_M(1)f_M(1)$.
+
+This shows that $f_M$ does not have the property of a homomorphism.
 
 
 \end{document}
