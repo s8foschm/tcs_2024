@@ -56,7 +56,67 @@ Automata recognizing \( f_N^{-1}(K) \):
 \end{tikzpicture}
 
 
-b) 
+d)
+\noindent
+\textbf{(d)} If \( h: \Sigma^* \to \Gamma^* \) is a homomorphism, then there is a transducer \( M \) with \( f_M = h \).
+
+Let \( h: \Sigma^* \to \Gamma^* \) be a homomorphism.  
+We can construct a transducer as follows:
+
+\[
+\sigma \in \Sigma: h(\sigma)
+\]
+
+Formally, 
+\[
+M_h = (Q, \Sigma, \Gamma, \delta, f, q_0, Q_{\text{acc}})
+\]
+with
+\[
+Q = \{ q_0 \}, \quad Q_{\text{acc}} = \{ q_0 \},
+\]
+\[
+\delta(q_0, x) = q_0, \quad \forall x \in \Sigma^*,
+\]
+and
+\[
+f^*(q_0, x) = h(x).
+\]
+
+Now, we prove that \( \forall x \in \Sigma^* : f^*(q_0, x) = h(x) \).
+
+Proof by induction over \( |x| \):  
+
+\textbf{Base case:}  
+If \( |x| = 0 \), \( x = \varepsilon \):  
+\[
+f^*(q_0, \varepsilon) = h(\varepsilon) = \varepsilon.
+\]
+
+\textbf{Induction step:}  
+Let \( |w| = n + 1 \), where \( w = \sigma x \), \( x \in \Sigma^* \), and \( \sigma \in \Sigma \).
+
+Induction Hypothesis (IH): Assume \( f^*(q_0, x) = h(x) \) for all \( x \in \Sigma^* \) with \( |x| = n \).  
+We prove it holds for \( w = \sigma x \):  
+
+\[
+f^*(q_0, w) = f^*(q_0, \sigma x)
+\]
+\[
+= f(q_0, \sigma) f^*(q_0, x)
+\]
+\[
+= h(\sigma) h(x)
+\]
+\[
+= h(\sigma x)
+\]
+\[
+= h(w).
+\]
+
+Thus, by induction, \( f^*(q_0, x) = h(x) \) for all \( x \in \Sigma^* \). \(\Box\)
+
 
 
 \end{document}
