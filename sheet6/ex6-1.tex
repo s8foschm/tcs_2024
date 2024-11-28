@@ -55,8 +55,68 @@ Automata recognizing \( f_N^{-1}(K) \):
           edge [bend right] node {1} (AA');
 \end{tikzpicture}
 
+\textbf{b)} Let $M_L = (Q_L, \Sigma, \delta_L, q_0, Q_{\text{acc},L})$ be a DFA with $L = L(M_L)$.
 
-d)
+We construct an NFA $M_{f_M} = (Q_{f_M}, \Gamma, \delta_{f_M}, (q_0, q_{0, L}), Q_{\text{acc},f_M})$, s.t. $f_M(L) = L(L(M_{f_M}))$.
+
+\[
+Q_{f_M} = (Q \times Q_L) \cup \{(q, q_L)_{f(q,a)_i} \mid q \in Q, q_L \in Q_L, a \in \Sigma, 1 \leq i \leq |f(q, a)|\}
+\]
+
+\[
+Q_{\text{acc},f_M} = \{(q, q_L) \mid q \in Q_{\text{acc}} \land q_L \in Q_{\text{acc},L}\}.
+\]
+
+To formally define the set of $\delta$ transitions, we will interpret $\delta_{f_M}$ as a \emph{set of triplets} as follows:
+
+\[
+((q, q_L), a, (q', q_L')) \in \delta_{f_M} \iff (q', q_L'), a) \in \delta_{f_M}((q, q_L), a).
+\]
+
+Similar to sample solution 2, in particular, we have:
+\[
+\delta_{f_M} :=
+\{((q, a, q_L), f(q, a), (q', q_L')) \mid |f(q, a)| \leq 1, (q, a, q') \in \delta, (q_L, a, q_L') \in \delta_L\}
+\]
+\[
+\cup \{((q, q_L), f(q, a)_1, (q', q_1')_{f(q, a)_1}) \mid |f(q, a)| > 1, (q, a, q') \in \delta, (q_L, a, q_L') \in \delta_L\}
+\]
+\[
+\cup \{((q, q_L)_{f(q, a)_i}, f(q, a)_{i+1}, (q', q_L')_{f(q, a)_{i+1}}) \mid 1 \leq i \leq |f(q, a)| - 2, (q, a, q') \in \delta, (q_L, a, q_L') \in \delta_L\}
+\]
+\[
+\cup \{((q, q_L)_{f(q, a)_{|f(q, a)|-1}}, f(q, a)_{|f(q, a)|}, (q', q_L')) \mid  (q_L, a, q_L') \in \delta_L, |f(q, a)| > 1\}
+\]
+This way, $\delta_{f_M}$ handles all the cases, including the transitions to and from the artificial states. This is what the three last subsets of $\delta_{f_M}$ handle.
+
+Note that these artificial states are being introduced due to the fact that in $f(q, a) = b$, $a \in \Sigma$ but $b \in \Gamma^*$, which we need to traverse.
+
+\noindent
+\textbf{(c)}
+Let $M_L = (Q_L, \Gamma, \delta_L, q_0, Q_{\text{acc},L})$ such that $L = L(M_L)$.
+
+We construct a DFA $M_{f_M^{-1}} = ((Q \times Q_L), \Sigma, \delta_{f_M^{-1}}, (q_0, q_0), Q_{\text{acc},f_M^{-1}})$ with:
+
+\[
+Q_{\text{acc},f_M^{-1}} = \{(q, q_L) \mid q \in Q_{\text{acc}} \land q_L \in Q_{\text{acc},L} \}
+\]
+
+and
+
+\[
+\delta_{f_M^{-1}}((q, q_L), \sigma) =
+\begin{cases} 
+  (\delta(q, a), \delta_L^*(q_L, f(q, a))) & \text{if } \delta(q, a) \in Q \\
+  & \land \delta_L^*(q_L, f(q, a)) \in Q_L \\
+  & \land f(q, a) \text{ is defined} \\
+  \text{undefined} & \text{otherwise.}
+\end{cases}
+\]
+
+Now this automaton recognizes $f_M^{-1}$ such that $f_M^{-1}(L) = L(M_{f_M}^{-1})$.
+
+
+
 \noindent
 \textbf{(d)} If \( h: \Sigma^* \to \Gamma^* \) is a homomorphism, then there is a transducer \( M \) with \( f_M = h \).
 
