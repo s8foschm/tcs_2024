@@ -1,10 +1,63 @@
 \input{header}
 \input{macros}
 \sheet{6}{November 29th, 2024}
+\setcounter{section}{3}
 \begin{document}
 
-\section{Computability}
+\section{Countability}
 
-\textsc{To-Do.}
+\subsection{(a)}
+The set $A$ of all monotonically increasing total functions $f:\NN \rightarrow \NN$, i.e.\ functions with $f(n) \leq f(n+1)$ for all $n\in \NN$.
+
+We suspect that $A$ is uncountable and prove it by diagonalization.
+
+\textbf{Proof by contradiction:} Assume A is countable. This means that there is a bijection $g:\NN \rightarrow A$, where $g(n)$ is the $n$-th function of $A$.\\
+We define $u:\NN\rightarrow\NN$ as:
+$$u(i) = \sum_{0\leq k < i}g(k)(k) + 1$$
+$u$ is monotonically increasing because:
+$$u(i+1) = \sum_{0\leq k < i+1}g(k)(k) +1 = g(i+1)(i+1)+1 + \sum_{0\leq k < i}g(k)(k)+1 = g(i+1)(i+1)+1 + u(i) \geq u(i)$$
+However, $\forall k \in \NN$, we know that $u(k) \neq g(k)(k)$. So $u$ differs from all functions $g(k)$ in at least one point. Therefore $\nexists k\in \NN: \forall n \in \NN: g(k)(n) = u(n)$.\\
+Therefore, we have created a total, monotonically increasing function (namely $u:\NN \rightarrow \NN$), which is not contained in our list.\\
+We have reached a contradiction and therefore know that $A$ is uncountable.
+
+
+\subsection{(b)}
+The set $B$ of all total functions $f:\NN \rightarrow \NN$ with finite support.\\
+Functions with finite support are functions $f$ such that $\left\{ i \in \NN \mid f(i) \neq 0 \right\}$ is finite.
+
+We suspect $B$ is countable, so we want to find a injective function $g:B\rightarrow\NN$.
+
+For every injective function, we know that the set $\left\{ i \in \NN \mid f(i) \neq 0 \right\}$ is finite. It therefore has a maximal element in relation to $\geq$ on $\NN$. Let's call that maximal element $m$. We now that $\forall n \in \NN: n>m\rightarrow f(n)=0$.\\
+We can encode the function $f$ as a finite list of pairs.
+$$\langle 0, f(0) \rangle, \langle 1, f(1) \rangle, \ldots, \langle m-1, f(m-1)\rangle, \langle m, f(m) \rangle$$
+Due to the definition of our pairing function $\langle\rangle$, it is a bijection. This means that every pair is going to be assigned one unique natural number. By proceeding to fold the resulting list of natural numbers using, again, the pairing function, we get one unique natural number.\\
+Using the pairing function, we have now created an injection from the set $B$ to $\NN$. Since the pairing function is a bijection, we know that the function we constructed is going to be injective, since we didn't use anything other than the pairing function. So, we have shown that $B$ is countable.
+
+\subsection{(c)}
+The set $\Sigma^{\ast}$.\\
+The Kleene closure is defined as: $\Sigma^{\ast}:= \left\{ x_{1}x_{2}\ldots x_{m} \mid m \geq 0, x_\mu \in \Sigma, 1 \leq \mu \leq m \right\}$
+
+Let's list all elements of $\Sigma^{\ast}$
+\begin{itemize}
+    \item length $1$: $\overbrace{x_{1},x_{2},\ldots,x_{n}}^{\text{length } n}$ since $\Sigma$ is finite (assuming $\lvert \Sigma \rvert = n$)
+    \item length $2$: $\overbrace{x_{1}x_{1}, x_{1}x_{2}, \ldots, x_{1}x_{n}, x_{2}x_{1}, x_{2}x_{2}, \ldots, x_{2}x_{n}, \ldots, x_{n}x_{n-1}, x_{n}x_{n}}^{\text{length }n^2}$
+    \item $\ldots$
+    \item for length $n$ the list will have length $n^{n}$
+\end{itemize}
+
+Since $n$ is finite, every list of strings of length $k$ is going to be finite (length $n^k$).\\
+We can therefore concatenate these lists to create one infinite list.
+
+Enumerating this set is equivalent to $\bigcup_{k\in \NN}\NN^{k}$ for finite $k$.\\
+By lexicographical ordering, we can create a sorted list.
+
+Therefore, $\Sigma^{\ast}$ is countable.
+
+\subsection{(d)}
+The set $L$.\\
+Since $L \subseteq \Sigma^{\ast}$ and $\Sigma^{\ast}$ is countable, $L$ is also countable.
+
+\subsection{(e)}
+The set $E$ of all homomorphisms $H:\Sigma^{\ast}\rightarrow\Gamma^{\ast}$.
 
 \end{document}
