@@ -43,7 +43,7 @@ H_0 = \{g \mid g_{\text{öd}}(g) \text{ halts on input } g\}.
 
 We want that $\chi'_{H_0} = \chi'_{L_1} o f$   
 \[
-f: \mathbb{N} \to \mathbb{N}, \quad f(g) := \textbf{göd}^{-1}(P),
+f: \mathbb{N} \to \mathbb{N}, \quad f(g) := \textbf{göd}(P),
 \]
 where $P$ is the following \textbf{WHILE} program and $P_2 = \textbf{göd}^{-1}(g)$:
 
@@ -59,7 +59,7 @@ where $P$ is the following \textbf{WHILE} program and $P_2 = \textbf{göd}^{-1}(
 \noindent
 If $g \notin H_0$, then $P_2 = \textbf{göd}^{-1}(g)$ halts on input $g$,  
 and $P$ outputs $42$ on input $j$, which would be $1337$,  
-and thus $f(g) = göd(P) \in L_1$.
+and thus $f(g) = \textbf{göd}(P) \in L_1$.
 
 \noindent
 If $g \notin H_0$, then $P_2 = \textbf{göd}^{-1}(g)$ doesn’t halt on input $g$, and $P$ diverges.  
@@ -83,9 +83,68 @@ The above mapping is \textbf{WHILE-computable}, because the pairing functions ar
 this shows that $L_1 \notin \textbf{co-RE} $ 
 
 \subsection{(c)}
-\textsc{To-Do.}
+
+We prove that $L_2 \notin \text{RE}$ because there exists a reduction $\overline{H_0} \leq L_2$.  
+Since $\overline{H_0} \notin \text{RE}$, it follows that $L_2 \notin \text{RE}$.
+
+\bigskip
+
+We want a function $f: \mathbb{N} \to \mathbb{N}$ such that $\chi'_{\overline{H_0}} = \chi'_{L_2} \circ f$.  
+We have:
+\[
+L_2 = \{i \mid \text{göd}^{-1}(i) \text{ diverges on every input}\},
+\]
+\[
+\overline{H_0} = \{g \mid \text{göd}^{-1}(g) \text{ doesn’t halt on input } g\}.
+\]
+
+Let $P_1 = \text{göd}^{-1}(g)$ and consider the following \textbf{WHILE}-program $P$:
+
+\begin{algorithm}
+    \caption{Input j}
+    \begin{algorithmic}[1]
+        \State $X_0 = g$
+        \State  $P_1$
+        \State $X_0 = 1$
+    \end{algorithmic}
+\end{algorithm}
+
+The reduction $f$ is given by:
+\[
+f(g) = \text{göd}(P) = \text{göd}([\![X_0 := g; P_1;] X_0 := 1;]\!]).
+\]
+$f$ is obviously \textbf{WHILE}-computable.
+\noindent
+Note that P completely ignores its input j and depends only on g.
+\bigskip
+
+\noindent
+
+\begin{itemize}
+    \item If $g \in \overline{H_0}$, then $P_1$ doesn’t halt on input $g$, and $P$ diverges. Thus, $f(g) = \text{göd}(P) \in L_2$.
+    \item If $g \notin \overline{H_0}$, then $P_1$ halts on input $g$, and $P$ doesn’t diverge. Thus, $f(g) = \text{göd}(P) \notin L_2$.
+\end{itemize}
+
+This shows that indeed $\overline{H_0} \leq L_2$, and therefore, since $\overline{H_0} \notin \text{RE}$, it holds that $L_2 \notin \text{RE}$.
+
+\bigskip
+\bigskip
 
 \subsection{(d)}
-\textsc{To-Do.}
+$L_2 \in \text{co-RE}$ because $\overline{L_2} \in \text{RE}$.  
+We show this by proving that $\chi'_{\overline{L_2}}$ is \textbf{WHILE}-computable with the following \textbf{WHILE}-program $P$, which takes as input $i$:
+
+
+
+\noindent
+Simulate $i$ on all possible inputs for a fixed number of steps $S$.  
+If any of the simulations terminate, output $1$.  
+If no more inputs are available, simulate $i$ on all possible inputs for $2 * S$ steps.
+
+\bigskip
+
+\noindent
+$P$ is obviously \textbf{WHILE}-computable and computes $\chi'_{\overline{L_2}}$,  
+therefore $L_2 \in \text{co-RE}$.
 
 \end{document}
