@@ -1,5 +1,37 @@
 \input{header}
 \input{macros}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tikz}
+
+\lstdefinelanguage{pseudo}{
+    morekeywords={for, while, if, else, fi},
+    sensitive=true,
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+% Custom style for code
+\lstdefinestyle{pseudo}{
+    language=pseudo,
+    basicstyle=\ttfamily\small, % Font style
+    keywordstyle=\color{blue}, % Color for keywords
+    commentstyle=\color{gray}, % Color for comments
+    stringstyle=\color{red}, % Color for strings
+    numbers=left, % Line numbers
+    numberstyle=\tiny\color{black},
+    stepnumber=1,
+    numbersep=10pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    morekeywords=[2]{Input, Output},
+    keywordstyle=[2]\color{orange},
+    morekeywords=[3]{do, od},
+    keywordstyle=[3]\color{purple},
+}
+
 \sheet{7}{December 6th, 2024}
 \setcounter{section}{1}
 \begin{document}
@@ -7,9 +39,127 @@
 \section{Closure properties}
 
 \subsection{(a)}
-\textsc{To-Do.}
+REC is closed under complementation, intersection, and union.
+
+\textbf{Proof:}
+
+Let $A, B \in \text{REC}$, then by definition of REC, $\chi_A$ and $\chi_B$ are \textbf{WHILE}-computable and total functions, which means they will always terminate.
+
+We define and implement $\chi_{\overline{A}}, \chi_{A \cap B}, \chi_{A \cup B}$ as follows:
+
+\[
+\chi_{\overline{A}}(x) :=
+\begin{cases}
+    0 & \text{if } \chi_A(x) = 1, \\
+    1 & \text{if } \chi_A(x) = 0.
+\end{cases}
+\]
+
+$\chi_{\overline{A}}$ is obviously \textbf{WHILE}-computable because $\chi_A$ is \textbf{WHILE}-computable.
+
+\bigskip
+
+Since $A, B \in \text{REC}$, there exist \textbf{WHILE}-programs that compute $\chi_A$ and $\chi_B$.
+
+Let $P_A$ be a \textbf{WHILE}-program that computes $\chi_A$, and $P_B$ a \textbf{WHILE}-program that computes $\chi_B$. The following \textbf{WHILE}-program $P$ computes $\chi_{A \cap B}$:
+
+\bigskip
+
+\textbf{Input:} $x$
+\[
+x_0 := x;
+\]
+\[
+P_A;
+\]
+\[
+\text{if } x_0 = 0 \text{ then}
+\]
+\[
+\quad \text{Return } 0;
+\]
+\[
+\text{else}
+\]
+\[
+\quad P_B;
+\]
+\[
+\text{fi;}
+\]
+
+Therefore, $\chi_{A \cap B}$ is \textbf{WHILE}-computable, and $A \cap B \in \text{REC}$.
+
+\bigskip
+
+For union, $\chi_{A \cup B}$ can be implemented as:
+\[
+\chi_{A \cup B}(x) :=
+\begin{cases}
+    1 & \text{if } \chi_A(x) = 1 \text{ or } \chi_B(x) = 1, \\
+    0 & \text{otherwise}.
+\end{cases}
+\]
+
+The following \textbf{WHILE}-program computes $\chi_{A \cup B}$:
+
+\bigskip
+
+\textbf{Input:} $x$
+\[
+x_0 := x;
+\]
+\[
+P_A;
+\]
+\[
+P_B;
+\]
+\bigskip
+
+\noindent
+Therefore, $\chi_{A \cup B}$ is \textbf{WHILE}-computable, and $A \cup B \in \text{REC}$.
+
 
 \subsection{(b)}
-\textsc{To-Do.}
+
+
+RE is closed under union and intersection but not under complementation.
+
+\textbf{Proof:}
+
+A counterexample of complementation is $\overline{H_0} \notin \text{RE}$ but $H_0 \in \text{RE}$.
+
+We define:
+\[
+\chi'_{A \cap B}(x) :=
+\begin{cases}
+    1 & \text{if } \chi'_A(x) = 1 \text{ and } \chi'_B(x) = 1, \\
+    \text{undefined} & \text{otherwise}.
+\end{cases}
+\]
+
+Let $A, B \in \text{RE}$, then $\chi'_A$ and $\chi'_B$ are \textbf{WHILE}-computable.  
+We can simulate $\chi'_{A \cap B}$ as follows:
+
+Simulate $\chi'_A$ and $\chi'_B$ in a simultaneous fashion (that is, one program runs one step, then the other program runs one step, and so on) and return $1$ if both $\chi'_A$ and $\chi'_B$ return $1$.
+
+\bigskip
+
+In the same way, we define:
+\[
+\chi'_{A \cup B}(x) :=
+\begin{cases}
+    1 & \text{if } \chi'_A(x) = 1 \text{ or } \chi'_B(x) = 1, \\
+    \text{undefined} & \text{otherwise}.
+\end{cases}
+\]
+
+We also implement $\chi'_{A \cup B}$ the same way as we implemented $\chi'_{A \cap B}$, but instead of returning $1$ only when both $\chi'_A$ and $\chi'_B$ simulations return $1$, we instead return $1$ once one of the simulations returns $1$.
+
+\bigskip
+
+This shows that both $\chi'_{A \cap B}$ and $\chi'_{A \cup B}$ are \textbf{WHILE}-computable, and therefore $A \cap B \in \text{RE}$ and $A \cup B \in \text{RE}$.  
+Thus, RE is closed under intersection and union.
 
 \end{document}
