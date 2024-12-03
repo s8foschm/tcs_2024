@@ -12,7 +12,31 @@
 \subsection{(b)}
 \textsc{To-Do.}
 
-\subsection{(c)}
+\subsection{(c)}\input{header}
+\input{macros}
+\sheet{7}{December 6th, 2024}
+\setcounter{section}{2}
+\begin{document}
+
+\section{Special halting problem}
+
+We define:
+\[
+f(g) := \langle g, g \rangle.
+\]
+
+\subsection*{(a)}
+We have shown in the lecture that the pairing function is \textbf{WHILE}-computable, therefore $f(g) = \langle g, g \rangle$ is \textbf{WHILE}-computable.
+
+\subsection*{(b)}
+Let $g \in H_0$, then $\text{göd}^{-1}(g)$ halts on $g$ and $f(g) = \langle g, g \rangle \in H$.
+
+\subsection*{(c)}
+Let $g \notin H_0$, then $\text{göd}^{-1}(g)$ doesn’t halt on $g$ and $f(g) = \langle g, g \rangle \notin H$.
+
+
+\end{document}
+
 \textsc{To-Do.}
 
 
