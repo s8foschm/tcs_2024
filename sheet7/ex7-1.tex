@@ -6,9 +6,16 @@
 \section{Universal \lstinline|FOR|-program}
 
 \subsection{(a)}
-\textsc{To-Do.}
+We show that there is no universal \lstinline|FOR|-program by contradiction.\\
+For this, we assume that there is a universal \lstinline|FOR|-program $U_{\text{FOR}}$ which, given the Gödel number $g$ of $P$ and the input $m$ of $P$, returns $\varphi p(M)$ if $P$ terminates on $m$, and does not terminate otherwise.\\
+Construct a \lstinline|FOR|-program as follows: for an input $n$, execute $U_{\text{FOR}}$ with inputs $n$ and $n$. Afterwards, increment the result by $1$.\\
+$$\varphi_{U_{\text{FOR}}} (g_{\text{FOR}}(p), g_{\text{FOR}}(p)) = \varphi_{P}(g_{\text{FOR}}(P)) = \varphi_{U_{\text{FOR}}}(g_{\text{FOR}}(P), g_{\text{FOR}}(P)) + 1$$
+This in contradiction with $\varphi$ begin a partial function, which especially, makes it functional.\\
+Remark: \lstinline|FOR|-programs allow us to do things after the loop has terminated, since we know that the loop will always terminate. This is not possible in \lstinline|WHILE|-programs.\\
+
 
 \subsection{(b)}
-\textsc{To-Do.}
+For a \lstinline|WHILE|-program, we are not able to modify the output after termination of the loop, since (as opposed to \lstinline|FOR|) \lstinline|WHILE|-programs do not always terminate.\\
+Therefore, the construction described above is not possible for \lstinline|WHILE|-program, and we can indeed construct a universal \lstinline|WHILE|-program, as seen in the lecture.
 
 \end{document}
