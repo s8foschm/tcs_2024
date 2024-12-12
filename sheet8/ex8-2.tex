@@ -8,14 +8,98 @@
 
 \subsection{(a)}
 
-\textsc{To-Do.}
+We can define a function, where $g, z \in \mathbb{N}$:
+\[
+f(g, z) :=
+\begin{cases}
+    1 & \text{if } g = z, \\
+    \text{undefined} & \text{otherwise}.
+\end{cases}
+\]
+
+This is obviously \textbf{WHILE}-computable as a \textbf{WHILE}-program that enters an infinite loop if $g \neq z$. Since $f(g, z)$ is \textbf{WHILE}-computable, then by the recursion theorem, there is a $g \in \mathbb{N}$ such that $\varphi^1_g(g) = f(g, z)$ for all $z \in \mathbb{N}$.
+
+Now, we have that $\varphi^1_g(g)$ is defined, and for everything else, $\varphi^1_g(g)$ is undefined for all $a \neq g$. Therefore, $\text{dom } \varphi_g = \{g\}$, and $L$ is not empty.
+
 
 \subsection{(b)}
 
-\textsc{To-Do.}
+We show that $L \in \text{RE}$ by finding a reduction $\overline{H_0} \leq L$. We use the $s$-$m$-$n$ theorem for this.
+
+Consider the function $f: \mathbb{N}^2 \to \mathbb{N}$ defined by:
+\[
+f(g, m) :=
+\begin{cases}
+    0 & \text{if } \text{göd}^{-1}(g) \text{ doesn't halt on } g \text{ after } m \leq \text{steps}, \\
+    \text{undefined} & \text{otherwise}.
+\end{cases}
+\]
+
+$f$ is obviously \textbf{WHILE}-computable. We can use the clocked version of the universal \textbf{WHILE}-program.
+
+Let $e$ be a Gödel number of $f$. By the $s$-$m$-$n$ theorem:
+\[
+f(g, m) = \varphi^2_{(e, g)}(m) = \varphi_{S^1_1(e, g)}(m)
+\]
+for all $g, m \in \mathbb{N}$. But by construction, we have:
+
+- If $g \in \overline{H_0}$:
+  \[
+  \text{göd}^{-1}(g) \text{ doesn't halt on input } g \iff f(g, m) = 0 \text{ for some } m \in \mathbb{N},
+  \]
+  \[
+  \iff S_1(e, g) \in L.
+  \]
+
+- If $g \notin \overline{H_0}$:
+  \[
+  \text{göd}^{-1}(g) \text{ halts on input } g \iff f(g, m) \text{ is undefined for all } m \in \mathbb{N},
+  \]
+  \[
+  \iff S_1(e, g) \notin L.
+  \]
+
+Thus, $S_1(e, \cdot)$ is the desired reduction, and $L \in \text{RE}$ because $\overline{H_0} \leq L$ and $\overline{H_0} \notin \text{RE}$.
+
 
 \subsection{(c)}
 
-\textsc{To-Do.}
+
+In the same way, we find a reduction $H_0 \leq L$. From this, it follows that $L \notin \text{co-RE}$ because $H_0 \notin \text{co-RE}$.
+
+\bigskip
+
+Consider the following function $f: \mathbb{N}^2 \to \mathbb{N}$ defined by:
+\[
+f(g, m) :=
+\begin{cases}
+    0 & \text{if } \text{göd}^{-1}(g) \text{ halts on input } g \text{ after } m \leq \text{steps}, \\
+    \text{undefined} & \text{otherwise}.
+\end{cases}
+\]
+
+Let $e$ be a Gödel number of $f$. By the $s$-$m$-$n$ theorem:
+\[
+f(g, m) = \varphi^2(e, g)(m) = \varphi_{S_1(e, g)}(m)
+\]
+for all $g, m \in \mathbb{N}$. But by construction, we have:
+
+- If $g \in H_0$:
+  \[
+  \text{göd}^{-1}(g) \text{ halts on input } g \iff f(g, m) = 0 \text{ for some } m \in \mathbb{N},
+  \]
+  \[
+  \iff S_1(e, g) \in L.
+  \]
+
+- If $g \notin H_0$:
+  \[
+  \text{göd}^{-1}(g) \text{ doesn't halt on input } g \iff f(g, m) \text{ is undefined for some } m \in \mathbb{N},
+  \]
+  \[
+  \iff S_1(e, g) \notin L.
+  \]
+
+Thus, $S_1(e, \cdot)$ is the desired reduction, and $L \notin \text{co-RE}$.
 
 \end{document}
