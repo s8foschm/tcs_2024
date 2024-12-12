@@ -2,10 +2,26 @@
 \input{macros}
 \sheet{8}{December 13th, 2024}
 \setcounter{section}{2}
+
 \begin{document}
 
 \section{More than just one Quine}
 
-\textsc{To-Do.}
+Consider a Quine $Q \in W$, which is \textsc{WHILE}-Program which returns its own Gödel number $g\ddot{o}d(W)$.\\
+Such a Quine could look like this:
+\begin{algorithm}[H]
+\caption{Original Quine $Q$}
+x := god(Q)\\
+return x
+\end{algorithm}
+We can modify this quine to include, as an argument, a number $k \in \NN$.
+\begin{algorithm}[H]
+\caption{Modified Quine $Q_{k}$}
+x := god($Q_{k}$)\\
+y := k\\
+return x
+\end{algorithm}
+Since these programs have different source codes (explicitely different because $k$ is always a different value), they also have different Gödel numbers.\\
+From this, we have created one different Quine in \textsc{WHILE} for every $n\in\NN$. This means that there are infinitely many Quines. $\square$
 
 \end{document}
