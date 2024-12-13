@@ -1,0 +1,71 @@
+\input{header}
+\input{macros}
+\sheet{9}{December 13th, 2024}
+\begin{document}
+\subsection*{(a)}
+$L_1$ is an index set.  
+
+Let $i \in L_1, j \in \mathbb{N}$ with $\varphi_i = \varphi_j$.  
+
+\[
+i \in L_1 \implies \varphi_i(1337) = 0  \text{ (def } L_1).
+\]
+
+\[
+\varphi_i = \varphi_j \implies \varphi_j(1337) = 0.
+\]
+
+\[
+\implies j \in L_1, \text{ and } L_1 \text{ is an index set.}\text{ (def } L_1)  \quad \Box
+\]
+
+\subsection*{(b)}
+$L_2$ is not an index set.
+
+\[
+\exists g: \text{im } \varphi_g = \{0, \ldots, g\} \text{ (}\implies \text{im } \varphi_g \subseteq \{0, \ldots, g\} \text{ holds), } g \in L_2.
+\]
+
+\[
+\exists k \in \mathbb{N}: k > g \text{ and } \varphi_g = \varphi_k.
+\]
+
+\[
+\varphi_g = \varphi_k \implies \text{im } \varphi_k = \{0, \ldots, g\}.
+\]
+
+But since $k > g \implies \text{im } \varphi_k \neq \{0, \ldots, k\}$:
+
+\[
+\implies k \notin L_2
+\]
+
+\[
+\implies L_2 \text{ not index set.} \quad \Box
+\]
+
+\subsection*{(c)}
+$L_3$ is not an index set.
+
+Let $i \in L_3, j \in \mathbb{N}$ with $\varphi_i = \varphi_j$ and $i \neq j$.  
+
+\[
+i \in L_3 \implies i = 42.
+\]
+
+We have $\varphi_i = \varphi_j$, but $i \neq j \implies j \neq 42 \implies j \notin L_3$.  
+
+Thus, $L_3$ is not an index set. \quad $\Box$
+
+\subsection*{(d)}
+For any $i \in \mathbb{N}$, $M_i := \{j \in \mathbb{N} \mid \varphi_i = \varphi_j\}$ is and index set.  
+
+Let $i \in \mathbb{N}, j \in M_i$, and $k \in \mathbb{N}$ with $\varphi_j = \varphi_k$.  
+
+\[
+j \in M_i \implies \varphi_i = \varphi_j = \varphi_k \implies k \in M_i.
+\]
+
+This proves $M_i$ is an index set for any $i \in \mathbb{N}$. \quad $\Box$
+
+\end{document}
