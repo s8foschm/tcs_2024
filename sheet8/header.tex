@@ -33,6 +33,14 @@
 % coloneqq
 \usepackage{mathtools}
 
+% algorithms/pseudocode
+\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{caption}
+% Redefine the caption format to remove "Algorithm n:"
+\DeclareCaptionFormat{myalgformat}{#3} % Only include the caption text
+\captionsetup[algorithm]{format=myalgformat,labelsep=none}
+
 % Blank lines instead of indented first line
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
