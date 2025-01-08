@@ -1,0 +1,42 @@
+\input{header}
+\input{macros}
+\sheet{10}{January 10th, 2025}
+\setcounter{section}{1}
+\begin{document}
+
+\section{Nonregular languages}
+
+\subsection{(a)}
+$$A = \left\{ 0^{3^{n}} \mid n \in \NN \right\}$$
+We use the Pumping Lemma.\\
+Consider $a \in A$, $a = uvw$. $u=\epsilon, v=0^{3^{n}}, w=\epsilon$ for a $n \in \NN$.\\
+We decompose $v$ into $v=xyz$, where $x=y=z=0^{3^{n-1}}$. Specifically, $y\neq\epsilon$.\\
+We now consider $uxy^{i}zw = \epsilon 0^{3^{n-1}} ( 0^{3^{n-1}})^{i} 0^{3^{n-1}} \epsilon$.\\
+Setting $i=2$, we get: $uxy^{2}zw=0^{3^{n-1}}0^{2\cdot3^{n-1}}0^{3^{n-1}}$.\\
+Now, we want to show that this is not part of $A$. For this, we show that $3^{n-1}+2\cdot 3^{n-1} + 3^{n-1} = 4\cdot 3^{n-1}$ is not a power of $3$.\\
+$4\cdot 3^{n-1} > 3^{n-1}$ obviously.\\
+$4\cdot 3^{n-1} > 3\cdot 3^{n-1} = 3^{n}$\\
+$4\cdot 3^{n-1} < 9\cdot 3^{n-1} = 3^{2}\cdot 3^{n-1} = 3^{n+1}$\\
+We have shown that $4\cdot 3^{n-1}$ is larger than one power of $3$, but smaller than the next. Therefore, it cannot be equal to any power of $3$.\\
+This shows that $A$ does not have the pumping property. Therefore, $A$ is not regular.
+
+\subsection{(b)}
+$$B = \left\{ (a^{k}bc^{j})^{n} \mid k,j \in \NN\text{ and }n\text{ is not prime} \right\}$$
+We use the Pumping Lemma.\\
+
+
+\subsection{(c)}
+$$C = \left\{ 0^{i}1^{j}2^{k} \mid i\cdot j \neq k \right\}$$
+
+\subsection{(d)}
+$$D = \left\{ x \in \left\{(,)\right\}^{\ast} \mid x \text{ is a balanced string of parentheses} \right\}$$
+We use the Myhill-Nerode Theorem.\\
+Consider the equivalence classes $x_{n} = (^{n}$ ($n$ opening parentheses), and $x_{m} = (^{m}$ ($m$ opening parentheses), with $n>m$.\\
+We now append $n$ closing parentheses to both:\\
+\begin{itemize}
+    \item $(^{n})^{n} \in L$ since it is balanced with both $n$ opening and closing parentheses
+    \item $(^{m})^{n} \notin L$ since there are more closing than opening parentheses (since $n>m$)
+\end{itemize}
+We have shown that $x_{n} \nsim x_{m}$, which implies that there are infinitely many Myhill-Nerode equivalence classes. Therefore, the language $D$ is not regular.
+
+\end{document}
