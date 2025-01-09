@@ -6,45 +6,49 @@
 \section{Quiz}
 
 \subsection{(a)}
-If $A$ is an index set and $i,j\in A$, then $\varphi_{i}=\varphi_{j}$ holds.\\
+If $A$ is an index set and $i,j\in A$, then $\varphi_{i}=\varphi_{j}$ holds.\vspace{0.3cm}\\
 The statement is \textbf{False}.\\
-\textsc{To-Do.}
+According to Rice's Theorem, $I\subseteq \NN$ is an index set if $\forall i,j \in \NN: i\in I \wedge \varphi_{i}=\varphi_{j} \Rightarrow j \in I$ holds.\\
+This is however not an equivalence. The set $A$ could contain different equivalence classes (so different values $i,j$ with $\varphi_{i}\neq\varphi_{j}$). Since we can arbitrary values as long as we fulfill the definition written above (so, we add the Gödel Numbers of all possible programs which compute the function we are adding), we are not limited to one function.
 
 \subsection{(b)}
-Any language $A\subseteq\NN$ that is not a non-trivial index set is decidable.\\
+Any language $A\subseteq\NN$ that is not a non-trivial index set is decidable.\vspace{0.3cm}\\
 The statement is \textbf{False}.\\
 %Rice's Theorem (Theorem 15.8) does not make any statement about sets which are not index sets.
 The Special Halting Problem $H_{0}$ is non-decidable, but it is not an index set according to example 15.8 and the corresponding proof in the script. So, it is a counter-example towards the statement.
 
 \subsection{(c)}
-The complement $\overline{A}$ of a finite language $A\subseteq\NN$ is decidable.\\
+The complement $\overline{A}$ of a finite language $A\subseteq\NN$ is decidable.\vspace{0.3cm}\\
 The statement is \textbf{True}.\\
-{\color{red} if we can use this, then it is to be proven in exercise 12.3 on page 114 in the script that $REC$ is closed under complementation.}\\
-Every finite set is obviously decidable. By checking whether a number $k$ is not in $A$ (which is \textsc{WHILE}-computable since $A$ is finite), we can find out whether $k$ is in $\overline{A}$.
+%{\color{red} if we can use this, then it is to be proven in exercise 12.3 on page 114 in the script that $REC$ is closed under complementation.}\\
+Every finite set is obviously decidable. By checking whether a number $k$ is not in $A$ (which is \textsc{WHILE}-computable since $A$ is finite), we can find out whether $k$ is in $\overline{A}$. This means that we have constructed a decider, which shows that $\overline{A}$ is decidable, or in other words, that decidable languages are closed under complementation.
 
 \subsection{(d)}
-For any pair $A,B\in\NN$, either $A\leq B$ or $B\leq A$ holds.\\
+For any pair $A,B\in\NN$, either $A\leq B$ or $B\leq A$ holds.\vspace{0.3cm}\\
 The statement is \textbf{False}.\\
 Counter-example: we use $A=H_{0}$, $B=\overline{H_{0}}$. We know that neither $H_{0}\leq\overline{H_{0}}$ nor $\overline{H_{0}}\leq H_{0}$ hold.
 
 \subsection{(e)}
-Any countable set $A\subseteq\NN$ is recursively enumerable.\\
+Any countable set $A\subseteq\NN$ is recursively enumerable.\vspace{0.3cm}\\
 The statement is \textbf{False}.\\
 Since $\NN$ is countable, every subset $A\subseteq\NN$ is also countable.\\
 $\overline{H_{0}}$ is a subset of $\NN$ but not recursively enumerable (corollary 12.7).
 
 \subsection{(f)}
-There is a set $A\subseteq\NN$ such that $A\leq H_{0}$ and $H_{0}\leq \overline{A}$.\\
+There is a set $A\subseteq\NN$ such that $A\leq H_{0}$ and $H_{0}\leq \overline{A}$.\vspace{0.3cm}\\
 The statement is \textbf{False}.\\
-If this were true, it would imply $H_{0} \in REC$.{\color{red} expand!}
+We know $H_{0} \in \text{RE}$. So, $A \leq H_{0} \Rightarrow A \in \text{RE}$.\\
+$A\leq H_{0} \Leftrightarrow \overline{A}\leq\overline{H_{0}}$\\
+Since the $\leq$ relation is transitive, we have $H_{0}\leq\overline{H_{0}}$.\\
+We know $\overline{H_{0}} \in \text{co-RE}$. This would imply $H_{0} \in \text{co-RE}$, which we know is not true, so we have reached a contradiction.
 
 \subsection{(g)}
-The only finite index set is the empty set.\\
+The only finite index set is the empty set.\vspace{0.3cm}\\
 The statement is \textbf{True}.\\
 There is an infinite number of programs/Turing machines and their respective Gödel numbers which compute a specific function. So, every non-empty index set has to be infinite.
 
 \subsection{(h)}
-There is a Turing Machine $M$ that, given the binary representation of a Gödel Number $g$ of a \textsc{WHILE} program, terminates with a $1$ on its tape if $g$ halts with input $g$ and otherwise terminates with $0$ on its tape.\\
+There is a Turing Machine $M$ that, given the binary representation of a Gödel Number $g$ of a \textsc{WHILE} program, terminates with a $1$ on its tape if $g$ halts with input $g$ and otherwise terminates with $0$ on its tape.\vspace{0.3cm}\\
 The statement is \textbf{False}.\\
 This corresponds to the special halting problem $H_{0}$, which is not decidable (Theorem 12.1). Since Turing-computability is equivalent to \textsc{WHILE}-computability (Theorem 15.8), this statement is false.
 

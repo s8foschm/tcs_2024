@@ -23,10 +23,36 @@ This shows that $A$ does not have the pumping property. Therefore, $A$ is not re
 \subsection{(b)}
 $$B = \left\{ (a^{k}bc^{j})^{n} \mid k,j \in \NN\text{ and }n\text{ is not prime} \right\}$$
 We use the Pumping Lemma.\\
+Consider $b=(a^{k}bc^{j})^{n} = uvw$.\\
+We decompose this into $u=a^{k}bc^{j}$, $v=a^{k}bc^{j}$, $w=(a^{k}bc^{j})^{n-2}$.\\
+Now we consider an arbitrary decomposition $v=xyz$ with $y\neq \epsilon$.\\
+We do a case distinction on the value of $v$:
+\begin{itemize}
+    \item $v= b$\\
+    In this case, with $i=2$, we get $uxy^{i}zw = a^{k}bc^{j}a^{k}b^{2}c^{j}(a^{k}bc^{j})^{n-2}$. This contains 2 successive $b$ characters, which cannot occur in our language, therefore $uxy^{i}zw \notin B$.
+    \item $v= a^{m}b$ or $v= "bc^{n}"$ with $m \leq k$ and $n \leq j$\\
+    Here, with $i=2$, we get a succession of $a^{m}b$ with no $c$ characters or a succession of $bc^{n}$ with no $a$ characters, which doesn't fulfill the $a^{k}bc^{j}$ pattern. Therefore, $uxy^{i}zw \notin B$.
+    \item $v= a^{m}bc^{n}$ with $m \leq k$ and $n \leq j$\\
+    Here, with $i=2$, we get $v=a^{k-m}(a^{m}bc^{n})(a^{m}bc^{n})b^{j-n}$. This does not fit the pattern $a^{k}bc^{j}$
+    \item $v= a^{k}bc^{j}$\\
+    Here, we get $uxy^{i}zw = (a^{k}bc^{j})^{n+i-1}$.\\
+    We know that there are infinitely many prime numbers, so we know: $\forall n \in \NN: \exists k \in \NN: n+k \text{ is prime}$.\\
+    By selecting $i$ appropriately, we can construct this such that $n+i-1$ is prime, such that $uxy^{i}zw = (a^{k}bc^{j})^{n+i-1} \notin B$
+\end{itemize}
+Therefore, $B$ does not fulfill the pumping property and is therefore not regular.
 
 
 \subsection{(c)}
 $$C = \left\{ 0^{i}1^{j}2^{k} \mid i\cdot j \neq k \right\}$$
+We use the Myhill-Nerode Theorem.\\
+Consider the equivalence classes $x_{n} = 0^{n}1^{n}$ and $x_{m} = 0^{n}1^{m}$ where $n\neq m$.\\
+Append $2^{n^{2}}$ to both:
+\begin{itemize}
+    \item $0^{n}1^{n}2^{n^{2}} \notin C$ since $n \cdot n = n^{2}$
+    \item $0^{n}1^{m}2^{n^{2}} \in C$ since $n \cdot m \neq n^{2}$ because $n \neq m$
+\end{itemize}
+We have shown that the equivalence classes $x_{n}$ and $x_{m}$ are pairwise different for and $n,m \in \NN$. This shows that there are infinitely many Myhill-Nerode equivalence classes- Therefore, according to the Myhill-Nerode Theorem, $C$ is not regular.
+
 
 \subsection{(d)}
 $$D = \left\{ x \in \left\{(,)\right\}^{\ast} \mid x \text{ is a balanced string of parentheses} \right\}$$

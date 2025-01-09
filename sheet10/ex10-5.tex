@@ -1,0 +1,22 @@
+\input{header}
+\input{macros}
+\sheet{10}{January 10th, 2025}
+\begin{document}
+
+\section{Recursion Theorem}
+
+\subsection{(a)}
+$$N_{1} = \left\{ i \in \NN \mid \varphi_{i}(m) = \langle x,y \rangle \right\}$$
+
+Let $f(g,x) = \langle x,y \rangle$. We know $f \in R$.\\
+So, $\exists x \in \NN : \varphi_{x}(y) = f(x,y) = \langle x,y \rangle$ after the recursion theorem.\\
+This simplifies to $\exists x \in \NN: \varphi_{i}(m) = \langle i,m\rangle$.\\
+So, our set $N_{1}$ is non-empty.
+
+\subsection{(b)}
+$$N_{2} = \left\{ i \in \NN \mid \varphi_{i}(0) = \varphi_{i+2025}(i) \right\}$$
+
+\subsection{(c)}
+$$N_{3} = \left\{ \langle i,j \rangle \mid i,j \in \NN \wedge i \neq j \wedge \varphi_{i}(j) + j = \varphi_{j}(i) + i \right\}$$
+
+\end{document}
