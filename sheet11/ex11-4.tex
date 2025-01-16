@@ -6,6 +6,12 @@
 
 \section{Busy Beaver}
 
-\textsc{To-Do.}
+$$\text{BB}(n) := \text{max}\left\{\text{Time}_{M}(\varepsilon)\mid M\text{ is a TM with }n\text{ states that halts on input }\varepsilon\right\}$$
+
+We want to prove that the Busy Beaver function is not computable by any Turing Machine.
+
+Proof by contradiction: assume that there is a Turing Machine $M$ which computes the Busy Beaver function. This Turing Machine would allow us to decide whether a given Turing Machine halts on input $\varepsilon$, which is the halting problem for Turing Machines.\\
+More specifically, any Turing Machine with $n$ states would have to halt after at most $n$ steps, by the definition of the Busy Beaver function. Considering any other Turing Machine $M'$ with $n$ states, if it has not halted after $n$ steps, we could say for sure that it would never halt, since it halting after more than $n$ steps would contradict the definition of the Busy Beaver function.\\
+We see that computing the Busy Beaver function would allow us to solve the Halting Problem for Turing machines. Since we know that the Halting Problem is not decidable, this is a contradiction which disproves our original assumption. So, we have shown that the Busy Beaver function is not computable by any Turing Machine.
 
 \end{document}
