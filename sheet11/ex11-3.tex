@@ -1,0 +1,32 @@
+\input{header}
+\input{macros}
+\sheet{11}{January 17th, 2025}
+\setcounter{section}{2}
+\begin{document}
+
+\section{Inclusion in \textsc{NP}}
+
+\subsection{SAT}
+
+Show that \textsc{SAT} is included in \textsc{NP} by finding a nondeterministic Turing machine that recognizes it, as well as by finding a polynomial time verifier.
+
+To construct a nondeterministic Turing machine, we can make the Turing machine guess potential assignments of the variables to truth values. Since our Turing machine is non-deterministic, we can make it guess and check multiple assignments in parallel.\\
+We do this by nondeterministically assigning a truth value ($0$ or $1$) to every variable. This assignment is written on the tape and can therefore be used when verifying whether the assignment satisfies the formula.\\
+This allows us to check all possible assignments for whether they are satisfied or not. By having checked all assignments, we can for sure decide if the formula is satisfiable or not: if the formula is satisfiable, there is an assignment which satisfies it, and we have found it. If it is not satisfiable, there is no satisfying assignment, and we have therefore also not found one.\\
+We have constructed a nondeterministic Turing machine which verifies if a formula is indeed satisfiable. Therefore, we have shown that $\text{SAT} \in \text{NP}$.
+
+To construct a polynomial time verifier, we have a given assignment of truth values for the variables $x_{1},x_{2},\ldots x_{i}$. We then want to check whether this assignment satisfies the formula. To do this, we check every clause individually: if one literal inside one clause is positive, the entire clause is positive. We need every clause to be deemed positive to satisfy the entire formula. This obviously takes polynomial time.\\
+We have constructed a polynomial time verifier which verifies if a certain assignment satisfies the formula. Therefore, again, we have shown that $\text{SAT} \in \text{NP}$.
+
+\subsection{HC}
+
+Show that the Hamiltonian Cycle problem (\textsc{HC}) is included in \textsc{NP} by finding a nondeterministic Turing machine that recognizes it, as well as by finding a polynomial time verifier.
+
+We want to construct a nondeterministic Turing machine with recognizes whether a given path contains a Hamiltonian Cycle or not. For this, we start by non-deterministically guessing a path. We can then check whether this is a Hamiltonian Cycle or not, which takes polynomial time and, specifically, three steps: we first check whether the path visits every single node contained in the graph exactly once, which takes $O(n)$ time. Then, we check whether each pair of consecutive nodes (including the last node being connected to the first node, since we are looking for a Hamiltonian Cycle and not only a Hamiltonian Path) in the path is actually connected to each other with an edge in the graph, which takes also $O(n)$ time. So, we can do the entire check in $O(n^{2})$ (polynomial) time.\\
+We have constructed a nondeterministic Turing machine which verifies if a given graph contains a Hamiltonian Cycle. Therefore, we have shown that $\text{HC} \in \text{NP}$.
+
+To construct a polynomial time verifier, we proceed similarly to the solution for SAT. Given a certain path, we can check if it is actually a Hamiltonian Cycle. For this, we need to proceed with the steps described above, which takes $o(n^{2})$, which is polynomial.\\
+We have constructed a polynomial time verifier, which given a graph and a path of this graph, checks if this path is a Hamiltonian Cycle. Therefore, again, we have shown that $\text{HC} \in \text{NP}$.
+
+
+\end{document}
