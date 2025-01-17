@@ -10,7 +10,9 @@
 
 Prove that the \textsc{KNAPSACK} problem is decidable in polynomial time in $U$, $L$ and $n$ by a Deterministic Turing Machine.
 
-
+Let $(M,W,C,U,L)$ be the \textsc{KNAPSACK} problem, where $M = (m_{1},\ldots,m_{n})$ are the items, $W = (w_{1},\ldots,w_{n})$ are the weights of the items and $C=(c_{1},\ldots,c_{n})$ are the values of the items. We call the \textsc{KNAPSACK} problem solvable if $\sum_{j=1}^{l}w_{ij} \leq U$ and $\sum_{j=1}^{l}c_{ij}\geq L$.\\
+We use a Dynamic Programming Algorithm. The dynamic programming matrix has $n$ rows and $U$ rows, where $n$ is the number of items and $U$ is the maximum capacity of the knapsack. In the matrix, the rows represent the selection of items available at the moment (in a cell of row $r$, the items $m_{1},\ldots,m_{r}$ are available). The columns represent the size of knapsack we are considering. So, in the most top-left cell, we start by wondering what would be the maximum value we could fit considering a choice of $0$ objects and a knapsack of capacity $0$, which is obviously $0$.\\
+{\color{red} this is easiest to explain using an example, I'll have to see how to show it, but I will probably create an example matrix.}
 
 \subsection{(b)}
 
@@ -18,6 +20,8 @@ Prove that the \textsc{KNAPSACK} problem is decidable in polynomial time in $U$,
 
 \subsection{(c)}
 
-\textsc{To-Do.}
+The dynamic programming algorithm and the \textsc{NP}-completeness of the \textsc{KNAPSACK} problem are not contradictory because they consider slightly different perspectives of the problem.\\
+The problem can be viewed as an \textit{optimization problem} as well as an \textit{decision problem}. The optimization version of the problem can be solved in pseudo-polynomial time, even though the decision version is still \textsc{NP}-complete according to exercise (b).\\
+The optimization problem cannot be solved in polynomial time, but only in pseudo-polynomial time, which in this case is not the same: the runtime of the optimization is dependent not only on the length of the input (number of items), but also on the maximum size of the knapsack, which is independent of input size. If we make this extremely large, the runtime of the dynamic programming algorithm will increase much faster than the input, which contradicts it being in \textsc{NP}.
 
 \end{document}
