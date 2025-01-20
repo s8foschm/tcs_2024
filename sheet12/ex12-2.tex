@@ -16,12 +16,15 @@ We use a Dynamic Programming Algorithm. The dynamic programming matrix has $n$ r
 
 \subsection{(b)}
 
-\textsc{To-Do.}
+To prove that \textsc{KNAPSACK} is \textsc{NP}-complete, we must show that it is \textsc{NP}-hard and that \textsc{KNAPSACK}$\in NP$.\\
+{\color{red}Knapsack problem versions: given items, weights, values, max capacity\\
+\textbf{Optimization problem}: what is the maximum value we can fit in the knapsack? $\Rightarrow$ computable in pseudo-polynomial time (runtime depends on the value of the input)\\
+\textbf{Decision problem}: is there a subset of items which fits in the knapsack and surpasses a desired target max value?$\Rightarrow$ is in NP because we can verify results in polynomial time. Can be shown to be NP-hard (and therefore NP-complete) using reduction to subset-sum}
 
 \subsection{(c)}
 
 The dynamic programming algorithm and the \textsc{NP}-completeness of the \textsc{KNAPSACK} problem are not contradictory because they consider slightly different perspectives of the problem.\\
-The problem can be viewed as an \textit{optimization problem} as well as an \textit{decision problem}. The optimization version of the problem can be solved in pseudo-polynomial time, even though the decision version is still \textsc{NP}-complete according to exercise (b).\\
+The problem can be viewed as an \textit{optimization problem} as well as a \textit{decision problem}. The optimization version of the problem can be solved in pseudo-polynomial time, even though the decision version is still \textsc{NP}-complete according to exercise (b).\\
 The optimization problem cannot be solved in polynomial time, but only in pseudo-polynomial time, which in this case is not the same: the runtime of the optimization is dependent not only on the length of the input (number of items), but also on the maximum size of the knapsack, which is independent of input size. If we make this extremely large, the runtime of the dynamic programming algorithm will increase much faster than the input, which contradicts it being in \textsc{NP}.
 
 \end{document}

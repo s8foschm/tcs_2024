@@ -8,7 +8,10 @@
 
 \subsection{(a)}
 
-\textsc{To-Do.}
+To show that 3-coloring is in \textsc{NP}, we must show that there is a polynomial time verifier for 3-coloring. This means, we must find an algorithm which, given a proposed solution (a colored graph) finds out whether this coloring respects the rules of the vertex coloration problem, so whether no 2 adjacent edges have the same color and no more than 3 colors are used in this case.\\
+To check this, we are given a graph and a proposed coloration. We go through every node of the graph one after the other. For every node, we check for all of its adjacent nodes, whether their color is the same as the same as the main node we are currently considering. If we find that this is the case for one node, we immediately return that this coloration is invalid. If we go through every node without finding two adjacent nodes with the same color, we return that the coloration is valid for the 3-coloration problem.\\
+{\color{red} check that there are no more than 3 colors used in total!}\\
+While this is not the most efficient way to check for valid colorations, it still runs in polynomial time: iterating over all nodes in itself takes linear time over the number of nodes, while checking for all adjacent nodes also takes linear time over the number of nodes in the graph. So, in the worst case, we have quadratic runtime, which is polynomial. So, our verifier is polynomial, which makes $\text{3-Col}\in\text{NP}$.
 
 \subsection{(b)}
 
