@@ -11,17 +11,38 @@
 Prove that the \textsc{KNAPSACK} problem is decidable in polynomial time in $U$, $L$ and $n$ by a Deterministic Turing Machine.
 
 Let $(M,W,C,U,L)$ be the \textsc{KNAPSACK} problem, where $M = (m_{1},\ldots,m_{n})$ are the items, $W = (w_{1},\ldots,w_{n})$ are the weights of the items and $C=(c_{1},\ldots,c_{n})$ are the values of the items. We call the \textsc{KNAPSACK} problem solvable if $\sum_{j=1}^{l}w_{ij} \leq U$ and $\sum_{j=1}^{l}c_{ij}\geq L$.\\
-We use a Dynamic Programming Algorithm. The dynamic programming matrix has $n$ rows and $U$ rows, where $n$ is the number of items and $U$ is the maximum capacity of the knapsack. In the matrix, the rows represent the selection of items available at the moment (in a cell of row $r$, the items $m_{1},\ldots,m_{r}$ are available). The columns represent the size of knapsack we are considering. So, in the most top-left cell, we start by wondering what would be the maximum value we could fit considering a choice of $0$ objects and a knapsack of capacity $0$, which is obviously $0$.\\
-{\color{red} this is easiest to explain using an example, I'll have to see how to show it, but I will probably create an example matrix.}
+We use a Dynamic Programming Algorithm. The dynamic programming matrix has $n$ rows and $U$ columns, where $n$ is the number of items and $U$ is the maximum capacity of the knapsack. In the matrix, the rows represent the selection of items available at the moment (in a cell of row $r$, the items $m_{1},\ldots,m_{r}$ are available). The columns represent the size of knapsack we are considering. So, in the most top-left cell, we start by wondering what would be the maximum value we could fit considering a choice of $0$ objects and a knapsack of capacity $0$, which is obviously $0$.\\
+Every cell in the dynamic programming matrix represents the maximum possible value considering the current maximum size of the knapsack and the available items. This is clear from the way the dynamic programming matrix is constructed: in the initial cell, we have no items available and a knapsack of size $0$, so our value is $0$. When we make one more item available, we check whether it is possible to replace one of our current items by this new item, as well as increasing the value of the total knapsack. When we increase the size of the knapsack, we check whether we have previously unused but available items which increase the total value.\\
+With this, we guarantee that we always get the maximum possible value. This implies that, when we consider the most bottom right cell, we have the maximum value that can be contained in the Knapsack for all items and the entire considered capacity.\\
+%{\color{red} this is easiest to explain using an example, I'll have to see how to show it, but I will probably create an example matrix.\\
+%I have tried my best to explain it here, but I don't know how understandable it is.}
 
 \subsection{(b)}
 
+Prove that the \textsc{KNAPSACK} problem is \textsc{NP}-complete.
+
 To prove that \textsc{KNAPSACK} is \textsc{NP}-complete, we must show that it is \textsc{NP}-hard and that \textsc{KNAPSACK}$\in NP$.\\
-{\color{red}Knapsack problem versions: given items, weights, values, max capacity\\
-\textbf{Optimization problem}: what is the maximum value we can fit in the knapsack? $\Rightarrow$ computable in pseudo-polynomial time (runtime depends on the value of the input)\\
-\textbf{Decision problem}: is there a subset of items which fits in the knapsack and surpasses a desired target max value?$\Rightarrow$ is in NP because we can verify results in polynomial time. Can be shown to be NP-hard (and therefore NP-complete) using reduction to subset-sum}
+To prove \textsc{NP}-hardness, we reduce the Subset-Sum problem to the \textsc{KNAPSACK} problem.\\
+Use the following function $f$ to transform an input to the Subset-Sum problem to a \textsc{KNAPSACK} input: the input of the Subset-Sum problem is a set and a target value. Consider an input set $S = \left\{s_{1},s_{2},\ldots,s_{n}\right\}$ and a target sum $T$ for the subset-sum problem. For every element $s_{i}\in S$, map it to an item $x_{i}$ in the knapsack with weight $w_{i} = s_{i}$ and value $v_{i} = s_{i}$. Set the knapsack capacity to $C = T$, and the minimum total value also to $V = T$.\\
+To prove that this reduction is valid, we prove that inputting a ``yes''-instance of the Subset-Sum problem into $f$ returns a ``yes''-instance of the Knapsack problem. Lastly, we do the same thing for ``no''-instances of both problems.\\
+For the ``yes''-instances, we consider a set $S$ and target value $V$ which satisfies the Subset-Sum problem. That means that there is a subset $I\subseteq S$ such that $\sum_{x_{i}\in S}x_{i} = V$. According to the definition our transformation function $f$, this allows us to construct a knapsack of items $S$, where the total sum of weights is $$\sum_{x_{i}\in S}w_{i} = \sum_{x_{i}\in S} s_{i} = T = C \leq C$$ and the total sum of values is $$\sum_{x_{i}\in S}v_{i} = \sum_{x_{i}\in S} s_{i} = T = V \geq V$$
+This shows that the subset $S$ indeed is a valid solution for the Knapsack problem, which shows that our function $f$ works for ``yes''-instances of the Subset-Sum problem.\\
+For the ``no''-instances, we want to show that for any plugging a ``no''-instance of the Subset-Sum problem into the function must also return a ``no''-instance of the Knapsack problem. We use the contraposition of this statement to show that if $f(x)$ is a ``yes''-instance of the Knapsack problem (where the input comes out of our function $f$, so we can indeed assume $\forall i: w_{i} = v_{i}$), $x$ is a ``yes''-instance of the Subset-Sum problem. This is obvious, and the argumentation corresponds to the one for the other direction, since we only do equivalence transformations.
+%{\color{red} we can't use contraposition for no-instances since this would require us to invert our function $f$, which we can't do because in any Knapsack input, the values and weights are not necessarily equal.\\
+%Problem: with a no-instance of subset-sum, there is no subset that reaches the desired sum exactly. That doesn't quite allow us to assure that the desired Knapsack result can't be reached.}
+
+To show that \textsc{KNAPSACK} is in \textsc{NP}, we show that any candidate solution can be verified in polynomial time. To verify a potential solution, it suffices to check whether the two properties given in the definition are fulfilled, so that the sum of the weights does not exceed the capacity and the sum of the values reaches at least the target value:
+$$\sum_{j=1}^{l}w_{ij}\leq U\text{ and }\sum_{j=1}^{l}c_{ij}\geq L$$
+This is obviously verifiable in polynomial time, since it only involves simple arithmetic calculations for every node.
+
+We have shown that \textsc{KNAPSACK} is \textsc{NP}-hard and in \textsc{NP}, so it is \textsc{NP}-complete.
+%{\color{red}Knapsack problem versions: given items, weights, values, max capacity\\
+%\textbf{Optimization problem}: what is the maximum value we can fit in the knapsack? $\Rightarrow$ computable in pseudo-polynomial time (runtime depends on the value of the input)\\
+%\textbf{Decision problem}: is there a subset of items which fits in the knapsack and surpasses a desired target max value?$\Rightarrow$ is in NP because we can verify results in polynomial time. Can be shown to be NP-hard (and therefore NP-complete) using reduction to subset-sum}
 
 \subsection{(c)}
+
+Why are the previous subtasks not contradictory?
 
 The dynamic programming algorithm and the \textsc{NP}-completeness of the \textsc{KNAPSACK} problem are not contradictory because they consider slightly different perspectives of the problem.\\
 The problem can be viewed as an \textit{optimization problem} as well as a \textit{decision problem}. The optimization version of the problem can be solved in pseudo-polynomial time, even though the decision version is still \textsc{NP}-complete according to exercise (b).\\

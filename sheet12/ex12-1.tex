@@ -11,18 +11,22 @@ $$\text{IS}:=\left\{(G,k)\mid G\text{ is an undirected graph with a }k\text{-ind
 $$\text{Clique}:=\left\{(G,k)\mid G\text{ is an undirected graph with a }k\text{-clique}\right\}$$
 
 To prove the reduction $\text{IS}\leq_{P}\text{Clique}$, we need to find a function which maps inputs of \texttt{IS} to inputs of \texttt{Clique}.\\
-Consider a graph $G = (V,E)$. Build the complement graph $\overline{G} = (V, \overline{E})$ where $\forall v_{1}, v_{2} \in V: (v_{1},v_{2}) \in \overline{E} \leftrightarrow (v_{1},v_{2}) \notin E$. This is obviously computable in polynomial time, by checking for every combination of nodes whether it is in the original edge set or not.
+Consider a graph $G = (V,E)$. Build the complement graph $\overline{G} = (V, \overline{E})$ where $\forall v_{1}, v_{2} \in V: (v_{1},v_{2}) \in \overline{E} \leftrightarrow (v_{1},v_{2}) \notin E$. This is obviously computable in polynomial time, by checking for every possible pairing of two nodes whether it is in the original edge set or not.\\
+We do not need to modify the number $k$ in this case.
+
+Written out formally, our reduction function is:
+$$f(G,k) = (\overline{G},k)\text{ where }\overline{G}=(V,\overline{E})$$
 
 To prove the correctness, we must show two separate statements:
 \begin{itemize}
-    \item $G$ has an independent set $\rightarrow$ $\overline{G}$ has a clique
-    \item $G$ has no independent set $\rightarrow$ $\overline{G}$ has no clique
+    \item $G$ has a $k$-independent set $\rightarrow$ $\overline{G}$ has a $k$-clique
+    \item $G$ has no $k$-independent set $\rightarrow$ $\overline{G}$ has no $k$-clique
 \end{itemize}
-For the first case, we assume that $G$ has an independent set. This is, by definition, a subset $I\subseteq V$ of nodes $I = \left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ where $\forall v_{1},v_{2} \in I: (v_{1},v_{2})\notin E$. By the definition of the complement graph stated above, this directly implies $\forall v_{1},v_{2} \in I: (v_{1},v_{2})\in \overline{E}$. This directly implies that $\overline{E}$ has a clique, so we are done with this case.\\
+For the first case, we assume that $G$ has a $k$-independent set. This is, by definition, a subset $I\subseteq V$ of nodes $I = \left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ where $\forall v_{1},v_{2} \in I: (v_{1},v_{2})\notin E$. By the definition of the complement graph stated above, this directly implies $\forall v_{1},v_{2} \in I: (v_{1},v_{2})\in \overline{E}$. This directly implies that $\overline{E}$ has a $k$-clique (namely $I$), so we are done with this case.\\
 We prove the second case by contraposition, so we attempt to show that\\
 \phantom{x}\hspace{0.4cm}$G$ has a clique $\rightarrow$ $\overline{G}$ has an independent set\\
 holds.\\
-$G$ has a clique, which by definition means that there is a subset $C\subseteq V$ of nodes $C = \left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ where $\forall v_{1},v_{2} \in C: (v_{1},v_{2})\in E$. By the definition of the complement graph stated above, this directly implies $\forall v_{1},v_{2} \in V: (v_{1},v_{2})\notin \overline{E}$. This directly implies that $\overline{E}$ has an independent set, so we are done with this case.
+$G$ has a $k$-clique, which by definition means that there is a subset $C\subseteq V$ of nodes $C = \left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ where $\forall v_{1},v_{2} \in C: (v_{1},v_{2})\in E$. By the definition of the complement graph stated above, this directly implies $\forall v_{1},v_{2} \in V: (v_{1},v_{2})\notin \overline{E}$. This directly implies that $\overline{E}$ has a $k$-independent set (namely $C$), so we are done with this case.
 
 We have provided a reduction function, shown that it runs in polynomial time and shown its correctness, so we have indeed shown $\text{IS}\leq_{P}\text{Clique}$.
 

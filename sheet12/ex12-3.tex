@@ -2,6 +2,7 @@
 \input{macros}
 \sheet{12}{January 24th, 2025}
 \setcounter{section}{2}
+\usepackage{float}
 \begin{document}
 
 \section{3-coloring}
@@ -9,28 +10,216 @@
 \subsection{(a)}
 
 To show that 3-coloring is in \textsc{NP}, we must show that there is a polynomial time verifier for 3-coloring. This means, we must find an algorithm which, given a proposed solution (a colored graph) finds out whether this coloring respects the rules of the vertex coloration problem, so whether no 2 adjacent edges have the same color and no more than 3 colors are used in this case.\\
-To check this, we are given a graph and a proposed coloration. We go through every node of the graph one after the other. For every node, we check for all of its adjacent nodes, whether their color is the same as the same as the main node we are currently considering. If we find that this is the case for one node, we immediately return that this coloration is invalid. If we go through every node without finding two adjacent nodes with the same color, we return that the coloration is valid for the 3-coloration problem.\\
-{\color{red} check that there are no more than 3 colors used in total!}\\
+To check this, we are given a graph and a proposed coloration. We go through every node of the graph one after the other. We also set up a data structure allowing for no duplicate entries (e.g. a hash map) where the previously seen colors are stored. For every node, we check for all of its adjacent nodes, whether their color is the same as the same as the main node we are currently considering. If we find that this is the case for one node, we immediately return that this coloration is invalid. If not, we proceed to add the color of the node to our data structure and check whether we have no more than 3 different colors stored in there. If we get more than three colors, our coloring is invalid (it is not a 3-coloring). If we go through these two steps for every node without finding two adjacent nodes with the same color and without having found more than three different colors in total, we return that the coloration is valid for the 3-coloration problem.\\
 While this is not the most efficient way to check for valid colorations, it still runs in polynomial time: iterating over all nodes in itself takes linear time over the number of nodes, while checking for all adjacent nodes also takes linear time over the number of nodes in the graph. So, in the worst case, we have quadratic runtime, which is polynomial. So, our verifier is polynomial, which makes $\text{3-Col}\in\text{NP}$.
-
-\subsection{(b)}
-
-\textsc{To-Do.}
 
 \subsection{(c)}
 
-\textsc{To-Do.}
+\qquad \qquad $G_{1}$\\
+\begin{tikzpicture}
+    \node [state] (bot) at (0,0) {$\bot$};
+    \node [state] (top) at (0,2) {$\top$};
+    \node [state] (z)   at (2,1) {$z$};
+
+    \path (bot) edge (top)
+    (bot) edge (z)
+    (top) edge (z);
+\end{tikzpicture}
+
+\qquad \qquad $G_{2}$\\
+\begin{tikzpicture}
+    \node [state] (xi)    at (2,0) {$x_{i}$};
+    \node [state] (notxi) at (2,2) {$\overline{x_{i}}$};
+    \node [state] (z)     at (0,1) {$z$};
+
+    \path (xi) edge (notxi)
+    (xi) edge (z)
+    (notxi) edge (z);
+\end{tikzpicture}
+\pagebreak
+
+\qquad \qquad $G_{3}$\\
+\begin{tikzpicture}
+    \node [state] (l3) at (0,0) {$l_{3}$};
+    \node [state] (l2) at (0,2) {$l_{2}$};
+    \node [state] (l1) at (0,4) {$l_{1}$};
+    \node [state] (a)  at (2,4) {};
+    \node [state] (b)  at (2,2) {};
+    \node [state] (c)  at (4,3) {};
+    \node [state] (d)  at (6,3) {};
+    \node [state] (e)  at (6,1) {};
+    \node [state] (f)  at (8,2) {};
+    \node [state] (bot)  at (10,2) {$\bot$};
+    \path (l1) edge (a)
+    (l2) edge (b)
+    (l3) edge (e)
+    (a) edge (b)
+    (a) edge (c)
+    (b) edge (c)
+    (c) edge (d)
+    (d) edge (e)
+    (d) edge (f)
+    (e) edge (f)
+    (f) edge (bot);
+\end{tikzpicture}
+
+Several copies of $G_{2}$ can be connected with a copy of $G_{1}$, such that all vertices with labels $x_{i}$ and $\overline{x_{1}}$ respectively contain exactly one vertex with color $\bot$ and one with color $\top$ in all proper colorings. Furthermore there should be a proper coloring for every possible assignment of $\bot$ and $\top$ to $x_{i}$ and $\overline{x_{i}}$.\\
+Here, we exemplarily show this for $4$ literals, but it can obviously be extended to arbitrarily many literals.
+
+\begin{tikzpicture}
+    \node [state] (top) at (1,5) {$\top$};
+    \node [state] (bot) at (5,5) {$\top$};
+    \node [state] (z)   at (3,3) {$z$};
+
+    \node [state] (notx1) at (0,0) {$\overline{x_{1}}$};
+    \node [state] (x1) at (0,1) {$x_{1}$};
+    \node [state] (notx2) at (2,0) {$\overline{x_{2}}$};
+    \node [state] (x2) at (2,1) {$x_{2}$};
+    \node [state] (notx3) at (4,0) {$\overline{x_{3}}$};
+    \node [state] (x3) at (4,1) {$x_{3}$};
+    \node [state] (notx4) at (6,0) {$\overline{x_{4}}$};
+    \node [state] (x4) at (6,1) {$x_{4}$};
+
+    \path (top) edge (z)
+    (bot) edge (z)
+    (z) edge (x1)
+    (z) edge (notx1)
+    (z) edge (x2)
+    (z) edge [bend left=15] (notx2)
+    (z) edge (x3)
+    (z) edge [bend right=15] (notx3)
+    (z) edge (x4)
+    (z) edge (notx4)
+    (x1) edge (notx1)
+    (x2) edge (notx2)
+    (x3) edge (notx3)
+    (x4) edge (notx4);
+\end{tikzpicture}
+
+When attempting to 3-color this graph, we start by setting 2 different colors for $\top$ and $\bot$, as well as a third color for $z$. This way, we ensure that every pair of $x_{i}$ and $\overline{x_{i}}$ would be colored in two different colors, where one color corresponds to $\top$ and the other color corresponds to $\bot$. One example coloring could look like this:
+
+\begin{tikzpicture}
+    \node [state, thick, color=green] (top) at (1,5) {$\top$};
+    \node [state, thick, color=red] (bot) at (5,5) {$\top$};
+    \node [state, thick, color=blue] (z)   at (3,3) {$z$};
+
+    \node [state, thick, color=red] (notx1) at (0,0) {$\overline{x_{1}}$};
+    \node [state, thick, color=green] (x1) at (0,1) {$x_{1}$};
+    \node [state, thick, color=green] (notx2) at (2,0) {$\overline{x_{2}}$};
+    \node [state, thick, color=red] (x2) at (2,1) {$x_{2}$};
+    \node [state, thick, color=green] (notx3) at (4,0) {$\overline{x_{3}}$};
+    \node [state, thick, color=red] (x3) at (4,1) {$x_{3}$};
+    \node [state, thick, color=red] (notx4) at (6,0) {$\overline{x_{4}}$};
+    \node [state, thick, color=green] (x4) at (6,1) {$x_{4}$};
+
+    \path (top) edge (z)
+    (bot) edge (z)
+    (z) edge (x1)
+    (z) edge (notx1)
+    (z) edge (x2)
+    (z) edge [bend left=15] (notx2)
+    (z) edge (x3)
+    (z) edge [bend right=15] (notx3)
+    (z) edge (x4)
+    (z) edge (notx4)
+    (x1) edge (notx1)
+    (x2) edge (notx2)
+    (x3) edge (notx3)
+    (x4) edge (notx4);
+\end{tikzpicture}
+
+The colors given to the individual $x_{i}$ and $\overline{x_{i}}$ can be swapped, but since they are both connected to $z$ as well as to each other, we ensure that the two different colors given to them are indeed the colors corresponding to $\top$ and $\bot$.
 
 \subsection{(d)}
 
-\textsc{To-Do.}
+We show that for any proper 3-coloring of $G_{3}$, at least one of the vertices of $l_{1}$, $l_{2}$, $l_{3}$ will have a color different to the color given to $\bot$. We do this by coloring both $\bot$ and all three nodes $l{1}$, $l{2}$, $l{3}$ in the same color, and showing that we can't get a valid coloring from this starting point. For simplicity of description, the inner nodes have also been given names $a$-$f$.
+
+\begin{tikzpicture}
+    \node [state, thick, color=orange] (l3) at (0,0) {$l_{3}$};
+    \node [state, thick, color=orange] (l2) at (0,2) {$l_{2}$};
+    \node [state, thick, color=orange] (l1) at (0,4) {$l_{1}$};
+    \node [state] (a)  at (2,4) {a};
+    \node [state] (b)  at (2,2) {b};
+    \node [state] (c)  at (4,3) {c};
+    \node [state] (d)  at (6,3) {d};
+    \node [state] (e)  at (6,1) {e};
+    \node [state] (f)  at (8,2) {f};
+    \node [state, thick, color=orange] (bot)  at (10,2) {$\bot$};
+    \path (l1) edge (a)
+    (l2) edge (b)
+    (l3) edge (e)
+    (a) edge (b)
+    (a) edge (c)
+    (b) edge (c)
+    (c) edge (d)
+    (d) edge (e)
+    (d) edge (f)
+    (e) edge (f)
+    (f) edge (bot);
+\end{tikzpicture}
+
+There is only one option (except for swapping colors, which we will ignore) to color the nodes $a$, $b$ and $c$. This is because $a$ and $b$ need to be given different colors to $l_{1}$ and $l_{2}$, as well as different colors to each other, and $c$ needs to go back to the color of $l_{1}$ and $l_{2}$
+
+\begin{tikzpicture}
+    \node [state, thick, color=orange] (l3) at (0,0) {$l_{3}$};
+    \node [state, thick, color=orange] (l2) at (0,2) {$l_{2}$};
+    \node [state, thick, color=orange] (l1) at (0,4) {$l_{1}$};
+    \node [state, thick, color=green] (a)  at (2,4) {a};
+    \node [state, thick, color=blue] (b)  at (2,2) {b};
+    \node [state, thick, color=orange] (c)  at (4,3) {c};
+    \node [state] (d)  at (6,3) {d};
+    \node [state] (e)  at (6,1) {e};
+    \node [state] (f)  at (8,2) {f};
+    \node [state, thick, color=orange] (bot)  at (10,2) {$\bot$};
+    \path (l1) edge (a)
+    (l2) edge (b)
+    (l3) edge (e)
+    (a) edge (b)
+    (a) edge (c)
+    (b) edge (c)
+    (c) edge (d)
+    (d) edge (e)
+    (d) edge (f)
+    (e) edge (f)
+    (f) edge (bot);
+\end{tikzpicture}
+
+In the next step, nodes $d$ and $e$ also need to be given different colors from each other, which both differ from the color of $l_{3}$.
+
+\begin{tikzpicture}
+    \node [state, thick, color=orange] (l3) at (0,0) {$l_{3}$};
+    \node [state, thick, color=orange] (l2) at (0,2) {$l_{2}$};
+    \node [state, thick, color=orange] (l1) at (0,4) {$l_{1}$};
+    \node [state, thick, color=green] (a)  at (2,4) {a};
+    \node [state, thick, color=blue] (b)  at (2,2) {b};
+    \node [state, thick, color=orange] (c)  at (4,3) {c};
+    \node [state, thick, color=green] (d)  at (6,3) {d};
+    \node [state, thick, color=blue] (e)  at (6,1) {e};
+    \node [state] (f)  at (8,2) {f};
+    \node [state, thick, color=orange] (bot)  at (10,2) {$\bot$};
+    \path (l1) edge (a)
+    (l2) edge (b)
+    (l3) edge (e)
+    (a) edge (b)
+    (a) edge (c)
+    (b) edge (c)
+    (c) edge (d)
+    (d) edge (e)
+    (d) edge (f)
+    (e) edge (f)
+    (f) edge (bot);
+\end{tikzpicture}
+
+This leaves no valid color for node $f$, since it is connected to $d$, $e$ and $\bot$, which all have different colors. We have reached a contradiction, so we have shown that there is no valid coloring of $G_{3}$ whenever all three inputs $l{1}$, $l{2}$, $l{3}$ have the same color as $\bot$. This is equivalent to the statement that there is a valid coloring if and only if at least one of the input nodes has a color different from $\bot$.
 
 \subsection{(e)}
 
-\textsc{To-Do.}
+We want to show that 3-coloring is NP-hard by showing $\textsc{3SAT}\leq_{P}\textsc{3COL}$.\\
+First, we describe the reduction intuitively. The graph we created in (c) helps us to assign a truth value (\textit{true} or \textit{false}) to every literal. The property of $G_{3}$ we showed in (d) allows us to understand that this corresponds to a disjunction of 3 literals: the graph is 3-colorable if and only if one of the input nodes has a color different than $\bot$, which in terms of logical formulas, corresponds to a 3-disjunction being true if and only if at least one of the literals in the disjunction is true (or different than false).\\
+To execute the reduction, we take every 3-disjunction in our 3-CNF formula and construct the corresponding graph. We then see that our formula is satisfiable if and only if all of the graphs we constructed are 3-colorable (this corresponds to the disjunction of all individual clauses).
 
 \subsection{(f)}
 
-\textsc{To-Do.}
+\textsc{Bonus.}
 
 \end{document}
